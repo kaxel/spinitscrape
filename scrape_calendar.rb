@@ -4,6 +4,7 @@ require 'net/http'
 require 'uri'
 require 'nokogiri'
 require 'json'
+require 'sqlite3'
 
 SHOW_NAMES = [
   "Sunday Morning Folk Sunrise",
@@ -11,6 +12,22 @@ SHOW_NAMES = [
   "The Weekly Catch with Krister Axel",
   "KSKQ Morning Show"
 ]
+
+# Initialize database
+DB = SQLite3::Database.new('radio_plays.db')
+
+# Create table if it doesn't exist
+DB.execute <<-SQL
+  CREATE TABLE IF NOT EXISTS radio_plays (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    date TEXT NOT NULL,
+    link TEXT NOT NULL,
+    program TEXT NOT NULL,
+    artist TEXT NOT NULL,
+    track_name TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  );
+SQL
 
 def fetch_page(url)
   uri = URI.parse(url)
@@ -35,7 +52,7 @@ def fetch_json(url)
   JSON.parse(response.body)
 end
 
-def get_tracklist(playlist_url)
+def get_tracklist(playlist_url, program_name, event_date)
   doc = fetch_page(playlist_url)
   return [] if doc.nil?
 
@@ -48,6 +65,12 @@ def get_tracklist(playlist_url)
 
     next if artist.nil? || artist.empty?
     next if song.nil? || song.empty?
+
+    # Insert into database
+    DB.execute(
+      "INSERT INTO radio_plays (date, link, program, artist, track_name) VALUES (?, ?, ?, ?, ?)",
+      [event_date, playlist_url, program_name, artist, song]
+    )
 
     tracks << "#{artist} - #{song}"
   end
@@ -95,12 +118,15 @@ SHOW_NAMES.each do |show_name|
   puts "URL: #{playlist_url}"
   puts "Time: #{event['start']}"
 
-  # Fetch the tracklist
-  tracks = get_tracklist(playlist_url)
+  # Fetch the tracklist and save to database
+  tracks = get_tracklist(playlist_url, show_name, event['start'])
 
   if tracks.empty?
     puts "No tracks found"
   else
+    puts "#{tracks.length} tracks saved to database"
     tracks.each { |track| puts track }
   end
 end
+
+puts "\nData saved to radio_plays.db"
