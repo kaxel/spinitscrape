@@ -62,7 +62,7 @@ module SetlistFormat
     links = []
     tracks = []
     in_tracks = false
-    lines = File.readlines(path, chomp: true)
+    lines = File.readlines(path, chomp: true, encoding: 'UTF-8')
 
     lines.each_with_index do |line, index|
       next if line.match?(/\A(<{4,}|>{4,}|={4,}|\|{4,})/) # git conflict markers / rules

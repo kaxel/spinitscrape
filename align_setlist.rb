@@ -171,7 +171,7 @@ def probe(path)
   return {} unless status.success?
 
   json = begin
-    JSON.parse(out)
+    JSON.parse(out.force_encoding('UTF-8'))
   rescue JSON::ParserError
     nil
   end
@@ -184,7 +184,7 @@ def probe(path)
 end
 
 def build_index(roots, verbose:)
-  cache = File.exist?(CACHE_FILE) ? (JSON.parse(File.read(CACHE_FILE)) rescue {}) : {}
+  cache = File.exist?(CACHE_FILE) ? (JSON.parse(File.read(CACHE_FILE, encoding: 'UTF-8')) rescue {}) : {}
   fresh = {}
   entries = []
 
