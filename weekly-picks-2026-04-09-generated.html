@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Weekly Catch — April 9, 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0f0f13;
+    --surface: #17171e;
+    --border: #2a2a38;
+    --text: #e8e8f0;
+    --muted: #7a7a96;
+    --accent: #ff5c5c;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 20px 16px;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  header .label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  header h1 {
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: #fff;
+  }
+
+  header h1 span { color: var(--accent); }
+
+  header .subtitle {
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  .divider {
+    width: 48px;
+    height: 3px;
+    background: var(--accent);
+    margin: 10px auto;
+    border-radius: 2px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 10px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 14px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--genre-color, #555);
+  }
+
+  .card-num {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-bottom: 3px;
+  }
+
+  .card-artist {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 2px;
+  }
+
+  .card-song {
+    font-size: 13px;
+    font-weight: 400;
+    color: #b0b0cc;
+    font-style: italic;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    background: transparent;
+    border: 1px solid var(--genre-color, #555);
+    color: var(--genre-color, #555);
+  }
+
+  .similar {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  .similar::before {
+    content: '≈';
+    font-size: 13px;
+    color: var(--genre-color, #555);
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  @media print {
+    body { background: #fff; color: #111; padding: 16px; }
+    .card { background: #f8f8f8; border-color: #ddd; break-inside: avoid; }
+    .card-artist { color: #111; }
+    .card-song { color: #444; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="label">Weekly Music Picks</div>
+  <h1>The <span>Weekly</span> Catch</h1>
+  <div class="divider"></div>
+  <div class="subtitle">April 9, 2026 &nbsp;·&nbsp; KSKQ</div>
+</header>
+
+<div class="grid">
+
+  <div class="card g-lofi" style="--genre-color:#6c8ebf">
+    <div class="card-num">TRACK 01</div>
+    <div class="card-artist">Skinny Dippers</div>
+    <div class="card-song">&#8220;Please Be Kind, Rewind&#8221;</div>
+    <div class="card-meta">
+      <span class="badge">Lofi Rock</span>
+      <span class="similar">War on Drugs</span>
+    </div>
+  </div>
+  <div class="card g-country" style="--genre-color:#d4a435">
+    <div class="card-num">TRACK 02</div>
+    <div class="card-artist">Evan Love</div>
+    <div class="card-song">&#8220;Red-Eye&#8221;</div>
+    <div class="card-meta">
+      <span class="badge">Pop Country</span>
+      <span class="similar">Third Eye Blind</span>
+    </div>
+  </div>
+  <div class="card g-americana" style="--genre-color:#c46b3a">
+    <div class="card-num">TRACK 03</div>
+    <div class="card-artist">David Wimbish &amp; The Collection</div>
+    <div class="card-song">&#8220;Worry&#8221;</div>
+    <div class="card-meta">
+      <span class="badge">Americana</span>
+      <span class="similar">Ryan Adams</span>
+    </div>
+  </div>
+  <div class="card g-funk" style="--genre-color:#9b59b6">
+    <div class="card-num">TRACK 04</div>
+    <div class="card-artist">Tan Brown</div>
+    <div class="card-song">&#8220;Green Glow&#8221;</div>
+    <div class="card-meta">
+      <span class="badge">Slow Funk</span>
+      <span class="similar">Meshell Ndegeocello</span>
+    </div>
+  </div>
+  <div class="card g-rockfunk" style="--genre-color:#e0534a">
+    <div class="card-num">TRACK 05</div>
+    <div class="card-artist">Jah Gordy</div>
+    <div class="card-song">&#8220;Pretty&#8221;</div>
+    <div class="card-meta">
+      <span class="badge">Rock / Funk</span>
+      <span class="similar">Mark Ronson</span>
+    </div>
+  </div>
+  <div class="card g-edm" style="--genre-color:#00bcd4">
+    <div class="card-num">TRACK 06</div>
+    <div class="card-artist">Growth pAInz</div>
+    <div class="card-song">&#8220;Naturally healing&#8221;</div>
+    <div class="card-meta">
+      <span class="badge">Experimental Pop / EDM</span>
+      
+    </div>
+  </div>
+  <div class="card g-indie" style="--genre-color:#5b8dd9">
+    <div class="card-num">TRACK 07</div>
+    <div class="card-artist">Eli Brunelle</div>
+    <div class="card-song">&#8220;my girl&#39;s apartment&#8221;</div>
+    <div class="card-meta">
+      <span class="badge">Indie Rock</span>
+      <span class="similar">Postal Service</span>
+    </div>
+  </div>
+  <div class="card g-indiepop" style="--genre-color:#48b9a0">
+    <div class="card-num">TRACK 08</div>
+    <div class="card-artist">The Satellite Station</div>
+    <div class="card-song">&#8220;Invisible&#8221;</div>
+    <div class="card-meta">
+      <span class="badge">Indie Pop</span>
+      <span class="similar">John Mayer</span>
+    </div>
+  </div>
+  <div class="card g-jazzfunk" style="--genre-color:#2e8b57">
+    <div class="card-num">TRACK 09</div>
+    <div class="card-artist">Drongomala</div>
+    <div class="card-song">&#8220;One Better Than You in a 1973 That Could Be&#8221;</div>
+    <div class="card-meta">
+      <span class="badge">Jazz / Funk</span>
+      <span class="similar">Tower of Power</span>
+    </div>
+  </div>
+  <div class="card g-heavy" style="--genre-color:#c0392b">
+    <div class="card-num">TRACK 10</div>
+    <div class="card-artist">Nick Moon</div>
+    <div class="card-song">&#8220;Setting Sun&#8221;</div>
+    <div class="card-meta">
+      <span class="badge">Heavy Rock</span>
+      <span class="similar">Led Zeppelin</span>
+    </div>
+  </div>
+  <div class="card g-folkrock" style="--genre-color:#6aaa64">
+    <div class="card-num">TRACK 11</div>
+    <div class="card-artist">Surtsey</div>
+    <div class="card-song">&#8220;Coast&#8221;</div>
+    <div class="card-meta">
+      <span class="badge">Indie Rock / Folk Rock</span>
+      <span class="similar">Wilco</span>
+    </div>
+  </div>
+  <div class="card g-punk" style="--genre-color:#f39c12">
+    <div class="card-num">TRACK 12</div>
+    <div class="card-artist">They Would Never</div>
+    <div class="card-song">&#8220;All The Same Bird&#8221;</div>
+    <div class="card-meta">
+      <span class="badge">Punk Rock</span>
+      <span class="similar">Green Day</span>
+    </div>
+  </div>
+  <div class="card g-indie" style="--genre-color:#5b8dd9">
+    <div class="card-num">TRACK 13</div>
+    <div class="card-artist">Del Amitri</div>
+    <div class="card-song">&#8220;It&#39;s Feelings&#8221;</div>
+    <div class="card-meta">
+      <span class="badge">Classic Indie Rock</span>
+      
+    </div>
+  </div>
+</div>
+
+<footer>13 tracks &nbsp;·&nbsp; The Weekly Catch &nbsp;·&nbsp; KSKQ &nbsp;·&nbsp; April 9, 2026</footer>
+
+</body>
+</html>

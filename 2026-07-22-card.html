@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Weekly Catch with Krister Axel — July 22, 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0f0f13;
+    --surface: #17171e;
+    --surface-2: #1d1d26;
+    --border: #2a2a38;
+    --text: #e8e8f0;
+    --muted: #8b8ba6;
+    --faint: #5f5f78;
+    --accent: #ff5c5c;
+    --radius: 14px;
+  }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.45;
+    padding: 32px 16px 64px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .card {
+    max-width: 820px;
+    margin: 0 auto;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  /* ---- masthead ---- */
+
+  header { padding: 34px 32px 26px; border-bottom: 1px solid var(--border); }
+
+  .imprint {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 10px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  .imprint .name { color: var(--accent); font-weight: 500; }
+  .imprint .sep { opacity: 0.5; }
+
+  header h1 {
+    margin-top: 14px;
+    font-size: clamp(30px, 6vw, 52px);
+    font-weight: 900;
+    letter-spacing: -0.035em;
+    line-height: 1.02;
+  }
+
+  header .date {
+    margin-top: 10px;
+    font-size: 15px;
+    color: var(--muted);
+    letter-spacing: 0.01em;
+  }
+
+  .stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .stat {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 5px 12px;
+  }
+
+  .stat b { color: var(--text); font-weight: 600; }
+
+  .listen {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .listen a {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--text);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 15px;
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+
+  .listen a::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .listen a:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ---- tracklist ---- */
+
+  .tracklist { list-style: none; }
+
+  .track {
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr) auto;
+    align-items: baseline;
+    gap: 4px 14px;
+    padding: 14px 32px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .track:last-child { border-bottom: 0; }
+  .track:hover { background: var(--surface-2); }
+
+  .num {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--faint);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .meta { min-width: 0; }
+
+  .artist {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .title {
+    display: block;
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.012em;
+    color: var(--text);
+    text-decoration: none;
+    margin-top: 2px;
+  }
+
+  .title:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+  .cue {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    text-align: right;
+  }
+
+  .cue .len { display: block; font-size: 11px; color: var(--faint); margin-top: 3px; }
+
+  .find {
+    grid-column: 2;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 6px;
+  }
+
+  .find a {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--faint);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .find a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  a:focus-visible, .title:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  footer {
+    padding: 22px 32px 26px;
+    border-top: 1px solid var(--border);
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--faint);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+
+  @media (max-width: 560px) {
+    body { padding: 16px 10px 40px; }
+    header { padding: 26px 20px 22px; }
+    .track { padding: 13px 20px; grid-template-columns: 30px minmax(0, 1fr) auto; gap: 4px 10px; }
+    footer { padding: 18px 20px 22px; }
+    .title { font-size: 16px; }
+  }
+
+  @media print {
+    body { background: #fff; color: #000; padding: 0; }
+    .card { border: 0; max-width: none; }
+    .track:hover { background: none; }
+    .find { display: none; }
+    .track { break-inside: avoid; padding: 8px 0; }
+    header, footer { padding-left: 0; padding-right: 0; }
+  }
+</style>
+</head>
+<body>
+<main class="card">
+  <header>
+    <div class="imprint">
+      <span class="name">CHILLFILTR</span>
+      <span class="sep">/</span>
+      <span>WC-20260722</span>
+      <span class="sep">/</span>
+      <span>Compilation</span>
+    </div>
+    <h1>The Weekly Catch</h1>
+    
+    <p class="date">July 22, 2026 · curated by Krister Axel</p>
+    
+    <div class="stats">
+      <span class="stat"><b>21</b> tracks</span>
+      
+      <span class="stat"><b>1h 59m+</b> runtime</span>
+      
+    </div>
+    
+    <nav class="listen">
+      
+      <a href="https://spinitron.com/KSKQ/pl/22761512/The-Weekly-Catch-with-Krister-Axel" target="_blank" rel="noopener">Spinitron playlist</a>
+      
+    </nav>
+    
+  </header>
+
+  <ol class="tracklist">
+    
+    <li class="track">
+      <span class="num">01</span>
+      <div class="meta">
+        <span class="artist">Elaskia</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Elaskia+Either+Way+I+Lose" target="_blank" rel="noopener">Either Way I Lose</a>
+      </div>
+      <span class="cue">
+        0:00
+        <span class="len">4:00</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Elaskia+Either+Way+I+Lose" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Elaskia+Either+Way+I+Lose" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Elaskia+Either+Way+I+Lose" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">02</span>
+      <div class="meta">
+        <span class="artist">Madilina</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Madilina+san+francisco" target="_blank" rel="noopener">san francisco</a>
+      </div>
+      <span class="cue">
+        4:00
+        <span class="len">45:00</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Madilina+san+francisco" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Madilina+san+francisco" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Madilina+san+francisco" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">03</span>
+      <div class="meta">
+        <span class="artist">Dipiz</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Dipiz+Can+You+Break+It" target="_blank" rel="noopener">Can You Break It</a>
+      </div>
+      <span class="cue">
+        49:00
+        <span class="len">7:00</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Dipiz+Can+You+Break+It" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Dipiz+Can+You+Break+It" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Dipiz+Can+You+Break+It" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">04</span>
+      <div class="meta">
+        <span class="artist">Margaret Glaspy</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Margaret+Glaspy+That+Rose" target="_blank" rel="noopener">That Rose</a>
+      </div>
+      <span class="cue">
+        56:00
+        <span class="len">4:00</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Margaret+Glaspy+That+Rose" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Margaret+Glaspy+That+Rose" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Margaret+Glaspy+That+Rose" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">05</span>
+      <div class="meta">
+        <span class="artist">Rajko</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Rajko+Everything+For+Nothing" target="_blank" rel="noopener">Everything For Nothing</a>
+      </div>
+      <span class="cue">
+        1:00:00
+        <span class="len">4:00</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Rajko+Everything+For+Nothing" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Rajko+Everything+For+Nothing" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Rajko+Everything+For+Nothing" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">06</span>
+      <div class="meta">
+        <span class="artist">Noisecare</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Noisecare+Rain+Thunder+and+Wind" target="_blank" rel="noopener">Rain Thunder and Wind</a>
+      </div>
+      <span class="cue">
+        1:04:00
+        <span class="len">3:00</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Noisecare+Rain+Thunder+and+Wind" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Noisecare+Rain+Thunder+and+Wind" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Noisecare+Rain+Thunder+and+Wind" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">07</span>
+      <div class="meta">
+        <span class="artist">The Lone Bellow</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=The+Lone+Bellow+After+The+Rain" target="_blank" rel="noopener">After The Rain</a>
+      </div>
+      <span class="cue">
+        1:07:00
+        <span class="len">3:00</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=The+Lone+Bellow+After+The+Rain" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/The+Lone+Bellow+After+The+Rain" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=The+Lone+Bellow+After+The+Rain" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">08</span>
+      <div class="meta">
+        <span class="artist">POLUN</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=POLUN+Today" target="_blank" rel="noopener">Today</a>
+      </div>
+      <span class="cue">
+        1:10:00
+        <span class="len">3:00</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=POLUN+Today" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/POLUN+Today" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=POLUN+Today" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">09</span>
+      <div class="meta">
+        <span class="artist">Peter Fenn</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Peter+Fenn+Far+Away" target="_blank" rel="noopener">Far Away</a>
+      </div>
+      <span class="cue">
+        1:13:00
+        <span class="len">2:00</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Peter+Fenn+Far+Away" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Peter+Fenn+Far+Away" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Peter+Fenn+Far+Away" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">10</span>
+      <div class="meta">
+        <span class="artist">Martha Wainwright</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Martha+Wainwright+Being+Right" target="_blank" rel="noopener">Being Right</a>
+      </div>
+      <span class="cue">
+        1:15:00
+        <span class="len">5:00</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Martha+Wainwright+Being+Right" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Martha+Wainwright+Being+Right" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Martha+Wainwright+Being+Right" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">11</span>
+      <div class="meta">
+        <span class="artist">Jacob Humber</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Jacob+Humber+Jesus+at+My+Dining+Room+Table" target="_blank" rel="noopener">Jesus at My Dining Room Table</a>
+      </div>
+      <span class="cue">
+        1:20:00
+        <span class="len">3:00</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Jacob+Humber+Jesus+at+My+Dining+Room+Table" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Jacob+Humber+Jesus+at+My+Dining+Room+Table" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Jacob+Humber+Jesus+at+My+Dining+Room+Table" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">12</span>
+      <div class="meta">
+        <span class="artist">The Open Sea</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=The+Open+Sea+Starlight" target="_blank" rel="noopener">Starlight</a>
+      </div>
+      <span class="cue">
+        1:23:00
+        <span class="len">3:00</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=The+Open+Sea+Starlight" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/The+Open+Sea+Starlight" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=The+Open+Sea+Starlight" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">13</span>
+      <div class="meta">
+        <span class="artist">Solbore</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Solbore+To+Be+Free" target="_blank" rel="noopener">To Be Free</a>
+      </div>
+      <span class="cue">
+        1:26:00
+        <span class="len">5:00</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Solbore+To+Be+Free" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Solbore+To+Be+Free" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Solbore+To+Be+Free" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">14</span>
+      <div class="meta">
+        <span class="artist">Elbow</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Elbow+Kindling" target="_blank" rel="noopener">Kindling</a>
+      </div>
+      <span class="cue">
+        1:31:00
+        <span class="len">5:00</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Elbow+Kindling" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Elbow+Kindling" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Elbow+Kindling" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">15</span>
+      <div class="meta">
+        <span class="artist">Leif Vollebekk</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Leif+Vollebekk+Transatlantic+Flight+-+Live+at+Roy+Thomson+Hall" target="_blank" rel="noopener">Transatlantic Flight - Live at Roy Thomson Hall</a>
+      </div>
+      <span class="cue">
+        1:36:00
+        <span class="len">7:00</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Leif+Vollebekk+Transatlantic+Flight+-+Live+at+Roy+Thomson+Hall" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Leif+Vollebekk+Transatlantic+Flight+-+Live+at+Roy+Thomson+Hall" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Leif+Vollebekk+Transatlantic+Flight+-+Live+at+Roy+Thomson+Hall" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">16</span>
+      <div class="meta">
+        <span class="artist">Down Like Silver</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Down+Like+Silver+First+Light" target="_blank" rel="noopener">First Light</a>
+      </div>
+      <span class="cue">
+        1:43:00
+        <span class="len">5:00</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Down+Like+Silver+First+Light" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Down+Like+Silver+First+Light" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Down+Like+Silver+First+Light" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">17</span>
+      <div class="meta">
+        <span class="artist">BENEE</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=BENEE+Winter+%28feat.+Mallrat%29" target="_blank" rel="noopener">Winter (feat. Mallrat)</a>
+      </div>
+      <span class="cue">
+        1:48:00
+        <span class="len">4:00</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=BENEE+Winter+%28feat.+Mallrat%29" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/BENEE+Winter+%28feat.+Mallrat%29" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=BENEE+Winter+%28feat.+Mallrat%29" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">18</span>
+      <div class="meta">
+        <span class="artist">franklet</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=franklet+Smithers" target="_blank" rel="noopener">Smithers</a>
+      </div>
+      <span class="cue">
+        1:52:00
+        <span class="len">2:00</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=franklet+Smithers" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/franklet+Smithers" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=franklet+Smithers" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">19</span>
+      <div class="meta">
+        <span class="artist">Aoife O&#39;Donovan</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Aoife+O%27Donovan+Elevators" target="_blank" rel="noopener">Elevators</a>
+      </div>
+      <span class="cue">
+        1:54:00
+        <span class="len">4:00</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Aoife+O%27Donovan+Elevators" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Aoife+O%27Donovan+Elevators" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Aoife+O%27Donovan+Elevators" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">20</span>
+      <div class="meta">
+        <span class="artist">Hot Mustard</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Hot+Mustard+The+Golden+Beet" target="_blank" rel="noopener">The Golden Beet</a>
+      </div>
+      <span class="cue">
+        1:58:00
+        <span class="len">1:00</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Hot+Mustard+The+Golden+Beet" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Hot+Mustard+The+Golden+Beet" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Hot+Mustard+The+Golden+Beet" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">21</span>
+      <div class="meta">
+        <span class="artist">Damien Jurado</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Damien+Jurado+Birds+Tricked+into+the+Trees" target="_blank" rel="noopener">Birds Tricked into the Trees</a>
+      </div>
+      <span class="cue">
+        1:59:00
+        
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Damien+Jurado+Birds+Tricked+into+the+Trees" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Damien+Jurado+Birds+Tricked+into+the+Trees" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Damien+Jurado+Birds+Tricked+into+the+Trees" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+  </ol>
+
+  <footer>
+    <span>CHILLFILTR · The Weekly Catch with Krister Axel</span>
+    <span>Support the artists — buy the record</span>
+  </footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Weekly Catch with Krister Axel — July 15, 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0f0f13;
+    --surface: #17171e;
+    --surface-2: #1d1d26;
+    --border: #2a2a38;
+    --text: #e8e8f0;
+    --muted: #8b8ba6;
+    --faint: #5f5f78;
+    --accent: #ff5c5c;
+    --radius: 14px;
+  }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.45;
+    padding: 32px 16px 64px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .card {
+    max-width: 820px;
+    margin: 0 auto;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  /* ---- masthead ---- */
+
+  header { padding: 34px 32px 26px; border-bottom: 1px solid var(--border); }
+
+  .imprint {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 10px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  .imprint .name { color: var(--accent); font-weight: 500; }
+  .imprint .sep { opacity: 0.5; }
+
+  header h1 {
+    margin-top: 14px;
+    font-size: clamp(30px, 6vw, 52px);
+    font-weight: 900;
+    letter-spacing: -0.035em;
+    line-height: 1.02;
+  }
+
+  header .date {
+    margin-top: 10px;
+    font-size: 15px;
+    color: var(--muted);
+    letter-spacing: 0.01em;
+  }
+
+  .stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .stat {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 5px 12px;
+  }
+
+  .stat b { color: var(--text); font-weight: 600; }
+
+  .listen {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .listen a {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--text);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 15px;
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+
+  .listen a::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .listen a:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ---- tracklist ---- */
+
+  .tracklist { list-style: none; }
+
+  .track {
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr) auto;
+    align-items: baseline;
+    gap: 4px 14px;
+    padding: 14px 32px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .track:last-child { border-bottom: 0; }
+  .track:hover { background: var(--surface-2); }
+
+  .num {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--faint);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .meta { min-width: 0; }
+
+  .artist {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .title {
+    display: block;
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.012em;
+    color: var(--text);
+    text-decoration: none;
+    margin-top: 2px;
+  }
+
+  .title:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+  .cue {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    text-align: right;
+  }
+
+  .cue .len { display: block; font-size: 11px; color: var(--faint); margin-top: 3px; }
+
+  /* Unverified cues read as provisional rather than authoritative. */
+  .cue.approx { color: var(--faint); font-style: italic; }
+
+  .find {
+    grid-column: 2;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 6px;
+  }
+
+  .find a {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--faint);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .find a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  a:focus-visible, .title:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  footer {
+    padding: 22px 32px 26px;
+    border-top: 1px solid var(--border);
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--faint);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+
+  @media (max-width: 560px) {
+    body { padding: 16px 10px 40px; }
+    header { padding: 26px 20px 22px; }
+    .track { padding: 13px 20px; grid-template-columns: 30px minmax(0, 1fr) auto; gap: 4px 10px; }
+    footer { padding: 18px 20px 22px; }
+    .title { font-size: 16px; }
+  }
+
+  @media print {
+    body { background: #fff; color: #000; padding: 0; }
+    .card { border: 0; max-width: none; }
+    .track:hover { background: none; }
+    .find { display: none; }
+    .track { break-inside: avoid; padding: 8px 0; }
+    header, footer { padding-left: 0; padding-right: 0; }
+  }
+</style>
+</head>
+<body>
+<main class="card">
+  <header>
+    <div class="imprint">
+      <span class="name">CHILLFILTR</span>
+      <span class="sep">/</span>
+      <span>WC-20260715</span>
+      <span class="sep">/</span>
+      <span>Compilation</span>
+    </div>
+    <h1>The Weekly Catch</h1>
+    
+    <p class="date">July 15, 2026 · curated by Krister Axel</p>
+    
+    <div class="stats">
+      <span class="stat"><b>25</b> tracks</span>
+      
+      <span class="stat"><b>1h 59m+</b> runtime</span>
+      
+    </div>
+    
+    <nav class="listen">
+      
+      <a href="https://spinitron.com/KSKQ/pl/22728106/The-Weekly-Catch-with-Krister-Axel" target="_blank" rel="noopener">Spinitron playlist</a>
+      
+    </nav>
+    
+  </header>
+
+  <ol class="tracklist">
+    
+    <li class="track">
+      <span class="num">01</span>
+      <div class="meta">
+        <span class="artist">COLLEAGUES</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=COLLEAGUES+Weekend" target="_blank" rel="noopener">Weekend</a>
+      </div>
+      <span class="cue">
+        11:04
+        <span class="len">7:55</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=COLLEAGUES+Weekend" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/COLLEAGUES+Weekend" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=COLLEAGUES+Weekend" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">02</span>
+      <div class="meta">
+        <span class="artist">Annie Elise</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Annie+Elise+make+a+wish" target="_blank" rel="noopener">make a wish</a>
+      </div>
+      <span class="cue">
+        18:59
+        <span class="len">5:21</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Annie+Elise+make+a+wish" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Annie+Elise+make+a+wish" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Annie+Elise+make+a+wish" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">03</span>
+      <div class="meta">
+        <span class="artist">Logan Lynn</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Logan+Lynn+The+Cocaine+Scene" target="_blank" rel="noopener">The Cocaine Scene</a>
+      </div>
+      <span class="cue">
+        24:20
+        <span class="len">4:56</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Logan+Lynn+The+Cocaine+Scene" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Logan+Lynn+The+Cocaine+Scene" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Logan+Lynn+The+Cocaine+Scene" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">04</span>
+      <div class="meta">
+        <span class="artist">Azamat Agraba</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Azamat+Agraba+Take+Away" target="_blank" rel="noopener">Take Away</a>
+      </div>
+      <span class="cue">
+        29:16
+        <span class="len">14:29</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Azamat+Agraba+Take+Away" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Azamat+Agraba+Take+Away" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Azamat+Agraba+Take+Away" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">05</span>
+      <div class="meta">
+        <span class="artist">Kerrier Collective</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Kerrier+Collective+Pray+for+Rain" target="_blank" rel="noopener">Pray for Rain</a>
+      </div>
+      <span class="cue">
+        43:45
+        <span class="len">9:01</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Kerrier+Collective+Pray+for+Rain" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Kerrier+Collective+Pray+for+Rain" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Kerrier+Collective+Pray+for+Rain" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">06</span>
+      <div class="meta">
+        <span class="artist">Dope TAF</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Dope+TAF+keep+fighting." target="_blank" rel="noopener">keep fighting.</a>
+      </div>
+      <span class="cue">
+        52:46
+        <span class="len">2:14</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Dope+TAF+keep+fighting." target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Dope+TAF+keep+fighting." target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Dope+TAF+keep+fighting." target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">07</span>
+      <div class="meta">
+        <span class="artist">The Spitting Pips</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=The+Spitting+Pips+Green+Eyes" target="_blank" rel="noopener">Green Eyes</a>
+      </div>
+      <span class="cue">
+        55:00
+        
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=The+Spitting+Pips+Green+Eyes" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/The+Spitting+Pips+Green+Eyes" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=The+Spitting+Pips+Green+Eyes" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">08</span>
+      <div class="meta">
+        <span class="artist">Wilder Woods</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Wilder+Woods+Go+Ahead" target="_blank" rel="noopener">Go Ahead</a>
+      </div>
+      <span class="cue approx" title="Approximate — not verified against the audio">
+        ~58:45
+        
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Wilder+Woods+Go+Ahead" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Wilder+Woods+Go+Ahead" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Wilder+Woods+Go+Ahead" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">09</span>
+      <div class="meta">
+        <span class="artist">Liza Anne</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Liza+Anne+Bad+Vacation" target="_blank" rel="noopener">Bad Vacation</a>
+      </div>
+      <span class="cue approx" title="Approximate — not verified against the audio">
+        ~59:45
+        
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Liza+Anne+Bad+Vacation" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Liza+Anne+Bad+Vacation" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Liza+Anne+Bad+Vacation" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">10</span>
+      <div class="meta">
+        <span class="artist">Steve Gunn</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Steve+Gunn+Other+You" target="_blank" rel="noopener">Other You</a>
+      </div>
+      <span class="cue approx" title="Approximate — not verified against the audio">
+        ~1:02:45
+        
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Steve+Gunn+Other+You" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Steve+Gunn+Other+You" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Steve+Gunn+Other+You" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">11</span>
+      <div class="meta">
+        <span class="artist">D&#39;Angelo</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=D%27Angelo+Left+And+Right" target="_blank" rel="noopener">Left And Right</a>
+      </div>
+      <span class="cue approx" title="Approximate — not verified against the audio">
+        ~1:08:45
+        
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=D%27Angelo+Left+And+Right" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/D%27Angelo+Left+And+Right" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=D%27Angelo+Left+And+Right" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">12</span>
+      <div class="meta">
+        <span class="artist">Derby Hill</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Derby+Hill+Restless+and+Forgiven" target="_blank" rel="noopener">Restless and Forgiven</a>
+      </div>
+      <span class="cue approx" title="Approximate — not verified against the audio">
+        ~1:13:45
+        
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Derby+Hill+Restless+and+Forgiven" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Derby+Hill+Restless+and+Forgiven" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Derby+Hill+Restless+and+Forgiven" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">13</span>
+      <div class="meta">
+        <span class="artist">Geneviève Racette</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Genevi%C3%A8ve+Racette+Les+adieux" target="_blank" rel="noopener">Les adieux</a>
+      </div>
+      <span class="cue approx" title="Approximate — not verified against the audio">
+        ~1:20:45
+        
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Genevi%C3%A8ve+Racette+Les+adieux" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Genevi%C3%A8ve+Racette+Les+adieux" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Genevi%C3%A8ve+Racette+Les+adieux" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">14</span>
+      <div class="meta">
+        <span class="artist">Abraham Alexander</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Abraham+Alexander+Stay+%28ft.+Gary+Clark+Jr.%29" target="_blank" rel="noopener">Stay (ft. Gary Clark Jr.)</a>
+      </div>
+      <span class="cue approx" title="Approximate — not verified against the audio">
+        ~1:23:45
+        
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Abraham+Alexander+Stay+%28ft.+Gary+Clark+Jr.%29" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Abraham+Alexander+Stay+%28ft.+Gary+Clark+Jr.%29" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Abraham+Alexander+Stay+%28ft.+Gary+Clark+Jr.%29" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">15</span>
+      <div class="meta">
+        <span class="artist">Sumbuck</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Sumbuck+Sy*z*y*gy" target="_blank" rel="noopener">Sy*z*y*gy</a>
+      </div>
+      <span class="cue approx" title="Approximate — not verified against the audio">
+        ~1:27:45
+        
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Sumbuck+Sy*z*y*gy" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Sumbuck+Sy*z*y*gy" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Sumbuck+Sy*z*y*gy" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">16</span>
+      <div class="meta">
+        <span class="artist">Cordovas</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Cordovas+Sunshine" target="_blank" rel="noopener">Sunshine</a>
+      </div>
+      <span class="cue approx" title="Approximate — not verified against the audio">
+        ~1:31:45
+        
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Cordovas+Sunshine" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Cordovas+Sunshine" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Cordovas+Sunshine" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">17</span>
+      <div class="meta">
+        <span class="artist">Richy Mitch &amp; The Coal Miners</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Richy+Mitch+%26+The+Coal+Miners+Lake+Missoula" target="_blank" rel="noopener">Lake Missoula</a>
+      </div>
+      <span class="cue approx" title="Approximate — not verified against the audio">
+        ~1:34:45
+        
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Richy+Mitch+%26+The+Coal+Miners+Lake+Missoula" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Richy+Mitch+%26+The+Coal+Miners+Lake+Missoula" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Richy+Mitch+%26+The+Coal+Miners+Lake+Missoula" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">18</span>
+      <div class="meta">
+        <span class="artist">Late Cambrian</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Late+Cambrian+How+I+Bleed" target="_blank" rel="noopener">How I Bleed</a>
+      </div>
+      <span class="cue approx" title="Approximate — not verified against the audio">
+        ~1:36:45
+        
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Late+Cambrian+How+I+Bleed" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Late+Cambrian+How+I+Bleed" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Late+Cambrian+How+I+Bleed" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">19</span>
+      <div class="meta">
+        <span class="artist">The Mercy Stone</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=The+Mercy+Stone+Unlocked" target="_blank" rel="noopener">Unlocked</a>
+      </div>
+      <span class="cue approx" title="Approximate — not verified against the audio">
+        ~1:40:45
+        
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=The+Mercy+Stone+Unlocked" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/The+Mercy+Stone+Unlocked" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=The+Mercy+Stone+Unlocked" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">20</span>
+      <div class="meta">
+        <span class="artist">Snocaps</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Snocaps+Doom" target="_blank" rel="noopener">Doom</a>
+      </div>
+      <span class="cue approx" title="Approximate — not verified against the audio">
+        ~1:43:45
+        
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Snocaps+Doom" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Snocaps+Doom" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Snocaps+Doom" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">21</span>
+      <div class="meta">
+        <span class="artist">Neil Cassidy</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Neil+Cassidy+Water+From+My+Bottle" target="_blank" rel="noopener">Water From My Bottle</a>
+      </div>
+      <span class="cue approx" title="Approximate — not verified against the audio">
+        ~1:46:45
+        
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Neil+Cassidy+Water+From+My+Bottle" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Neil+Cassidy+Water+From+My+Bottle" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Neil+Cassidy+Water+From+My+Bottle" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">22</span>
+      <div class="meta">
+        <span class="artist">Mild Orange</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Mild+Orange+Hollywood+Dreams" target="_blank" rel="noopener">Hollywood Dreams</a>
+      </div>
+      <span class="cue approx" title="Approximate — not verified against the audio">
+        ~1:49:45
+        
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Mild+Orange+Hollywood+Dreams" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Mild+Orange+Hollywood+Dreams" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Mild+Orange+Hollywood+Dreams" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">23</span>
+      <div class="meta">
+        <span class="artist">The HIITlist</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=The+HIITlist+Chromatic+Run+3%3A1+Interval+Ratio" target="_blank" rel="noopener">Chromatic Run 3:1 Interval Ratio</a>
+      </div>
+      <span class="cue approx" title="Approximate — not verified against the audio">
+        ~1:54:45
+        
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=The+HIITlist+Chromatic+Run+3%3A1+Interval+Ratio" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/The+HIITlist+Chromatic+Run+3%3A1+Interval+Ratio" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=The+HIITlist+Chromatic+Run+3%3A1+Interval+Ratio" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">24</span>
+      <div class="meta">
+        <span class="artist">Lydia Luce</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Lydia+Luce+Other+Side" target="_blank" rel="noopener">Other Side</a>
+      </div>
+      <span class="cue approx" title="Approximate — not verified against the audio">
+        ~1:58:45
+        
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Lydia+Luce+Other+Side" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Lydia+Luce+Other+Side" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Lydia+Luce+Other+Side" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">25</span>
+      <div class="meta">
+        <span class="artist">Rosarrie</span>
+        <a class="title" href="https://www.youtube.com/results?search_query=Rosarrie+compass" target="_blank" rel="noopener">compass</a>
+      </div>
+      <span class="cue approx" title="Approximate — not verified against the audio">
+        ~1:59:45
+        
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Rosarrie+compass" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Rosarrie+compass" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Rosarrie+compass" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+  </ol>
+
+  <footer>
+    <span>CHILLFILTR · The Weekly Catch with Krister Axel</span>
+    
+    <span class="legend">~ approximate cue</span>
+    
+    <span>Support the artists — buy the record</span>
+  </footer>
+</main>
+</body>
+</html>
