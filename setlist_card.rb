@@ -176,7 +176,7 @@ TEMPLATE = <<~'HTML'
 
     .stamp-mark {
       position: absolute; top: 22px; right: 28px;
-      width: 52px; height: 52px;
+      width: 84px; height: 84px;
       border: 1px dashed var(--ochre); border-radius: 3px; overflow: hidden;
       transform: rotate(8deg);
     }
@@ -326,7 +326,7 @@ TEMPLATE = <<~'HTML'
       .breadcrumb { padding: 18px 20px 0; }
       .bill { margin-top: 14px; }
       .bill-head { padding: 24px 20px 20px; }
-      .stamp-mark { width: 40px; height: 40px; top: 18px; right: 18px; }
+      .stamp-mark { width: 64px; height: 64px; top: 18px; right: 18px; }
       .dj-note { margin: 18px 20px 0; }
       .track { padding: 12px 20px; grid-template-columns: 24px minmax(0, 1fr) auto; gap: 4px 10px; }
       .bill-foot { padding: 18px 20px 16px; }
