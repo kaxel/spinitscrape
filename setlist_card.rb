@@ -12,6 +12,7 @@ require 'erb'
 require 'optparse'
 require 'uri'
 require_relative 'setlist'
+require_relative 'fish_thumbnail'
 
 # --- presentation helpers ----------------------------------------------------
 
@@ -61,6 +62,13 @@ end
 def catalog_number(setlist)
   digits = setlist.date.to_s.gsub(/\D/, '')
   digits.empty? ? 'WC-000' : "WC-#{digits}"
+end
+
+# Same digit string the episode ledger seeds its fish from, so a card and
+# its ledger row always draw the same fish.
+def fish_seed(setlist)
+  digits = setlist.date.to_s.gsub(/\D/, '')
+  digits.empty? ? 0 : digits.to_i
 end
 
 def runtime_label(setlist)
@@ -168,9 +176,11 @@ TEMPLATE = <<~'HTML'
 
     .stamp-mark {
       position: absolute; top: 22px; right: 28px;
-      width: 52px; height: auto; opacity: 0.9;
+      width: 52px; height: 52px;
+      border: 1px dashed var(--ochre); border-radius: 3px; overflow: hidden;
       transform: rotate(8deg);
     }
+    .stamp-mark svg { display: block; width: 100%; height: 100%; }
 
     .imprint {
       font-family: var(--stamp); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
@@ -316,7 +326,7 @@ TEMPLATE = <<~'HTML'
       .breadcrumb { padding: 18px 20px 0; }
       .bill { margin-top: 14px; }
       .bill-head { padding: 24px 20px 20px; }
-      .stamp-mark { width: 40px; top: 18px; right: 18px; }
+      .stamp-mark { width: 40px; height: 40px; top: 18px; right: 18px; }
       .dj-note { margin: 18px 20px 0; }
       .track { padding: 12px 20px; grid-template-columns: 24px minmax(0, 1fr) auto; gap: 4px 10px; }
       .bill-foot { padding: 18px 20px 16px; }
@@ -343,7 +353,7 @@ TEMPLATE = <<~'HTML'
 
   <main class="bill">
     <div class="bill-head">
-      <img class="stamp-mark" src="/art/weekly-catch-small.png" alt="" aria-hidden="true">
+      <div class="stamp-mark"><%= FishThumbnail.svg(fish_seed(setlist)) %></div>
       <div class="imprint">
         <span class="name"><%= h(label) %></span>
         <span class="sep">/</span>
