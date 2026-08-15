@@ -128,6 +128,9 @@
 
   .listen a:hover { border-color: var(--accent); color: var(--accent); }
 
+  .mixcloud-embed { margin-top: 16px; border-radius: 8px; overflow: hidden; }
+  .mixcloud-embed iframe { display: block; width: 100%; height: 60px; border: 0; }
+
   /* ---- tracklist ---- */
 
   .tracklist { list-style: none; }
@@ -172,7 +175,7 @@
     margin-top: 2px;
   }
 
-  .title:hover { text-decoration: underline; text-underline-offset: 3px; }
+  a.title:hover { text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 
   .cue {
     font-family: 'JetBrains Mono', ui-monospace, monospace;
@@ -245,6 +248,7 @@
     .card { border: 0; max-width: none; }
     .track:hover { background: none; }
     .find { display: none; }
+    .mixcloud-embed { display: none; }
     .track { break-inside: avoid; padding: 8px 0; }
     header, footer { padding-left: 0; padding-right: 0; }
   }
@@ -254,7 +258,7 @@
 <main class="card">
   <header>
     <div class="imprint">
-      <span class="name">CHILLFILTR</span>
+      <span class="name">CHILLFILTR®</span>
       <span class="sep">/</span>
       <span>WC-20260708</span>
       <span class="sep">/</span>
@@ -265,9 +269,9 @@
     <p class="date">July 8, 2026 · curated by Krister Axel</p>
     
     <div class="stats">
-      <span class="stat"><b>23</b> tracks</span>
+      <span class="stat"><b>31</b> tracks</span>
       
-      <span class="stat"><b>1h 59m+</b> runtime</span>
+      <span class="stat"><b>1h 57m+</b> runtime</span>
       
     </div>
     
@@ -275,7 +279,15 @@
       
       <a href="https://spinitron.com/KSKQ/pl/22694794/The-Weekly-Catch-with-Krister-Axel" target="_blank" rel="noopener">Spinitron playlist</a>
       
+      <a href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-08-kskq/" target="_blank" rel="noopener">Listen on Mixcloud</a>
+      
     </nav>
+    
+    
+    <div class="mixcloud-embed">
+      <iframe id="mixcloud-widget" title="Mixcloud player" allow="autoplay"
+        src="https://www.mixcloud.com/widget/iframe/?hide_cover=1&hide_artwork=1&mini=1&light=0&feed=%2Fchillfiltr%2Fweekly-catch-2026-07-08-kskq%2F"></iframe>
+    </div>
     
   </header>
 
@@ -284,11 +296,32 @@
     <li class="track">
       <span class="num">01</span>
       <div class="meta">
+        <span class="artist">M Field</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-08-kskq/" data-seek="2" target="_blank" rel="noopener">Huguenot Tunnel</a>
+        
+      </div>
+      <span class="cue">
+        0:02
+        
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=M+Field+Huguenot+Tunnel" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/M+Field+Huguenot+Tunnel" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=M+Field+Huguenot+Tunnel" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">02</span>
+      <div class="meta">
         <span class="artist">Down Like Silver</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Down+Like+Silver+First+Light" target="_blank" rel="noopener">First Light</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-08-kskq/" data-seek="73" target="_blank" rel="noopener">First Light</a>
+        
       </div>
       <span class="cue approx" title="Approximate — not verified against the audio">
-        ~1:51
+        ~1:13
         
       </span>
       <div class="find">
@@ -299,13 +332,15 @@
     </li>
     
     <li class="track">
-      <span class="num">02</span>
+      <span class="num">03</span>
       <div class="meta">
         <span class="artist">D&#39;Angelo</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=D%27Angelo+Africa" target="_blank" rel="noopener">Africa</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-08-kskq/" data-seek="313" target="_blank" rel="noopener">Africa</a>
+        
       </div>
       <span class="cue approx" title="Approximate — not verified against the audio">
-        ~5:51
+        ~5:13
         
       </span>
       <div class="find">
@@ -316,13 +351,15 @@
     </li>
     
     <li class="track">
-      <span class="num">03</span>
+      <span class="num">04</span>
       <div class="meta">
         <span class="artist">talker</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=talker+For+the+Sake+of+It" target="_blank" rel="noopener">For the Sake of It</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-08-kskq/" data-seek="675" target="_blank" rel="noopener">For the Sake of It</a>
+        
       </div>
       <span class="cue approx" title="Approximate — not verified against the audio">
-        ~11:51
+        ~11:15
         
       </span>
       <div class="find">
@@ -333,13 +370,34 @@
     </li>
     
     <li class="track">
-      <span class="num">04</span>
+      <span class="num">05</span>
+      <div class="meta">
+        <span class="artist">Unknown</span>
+        
+        <span class="title">Unknown</span>
+        
+      </div>
+      <span class="cue">
+        —
+        
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Unknown+Unknown" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Unknown+Unknown" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Unknown+Unknown" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">06</span>
       <div class="meta">
         <span class="artist">Viv &amp; Riley</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Viv+%26+Riley+Flashing+Lights" target="_blank" rel="noopener">Flashing Lights</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-08-kskq/" data-seek="1156" target="_blank" rel="noopener">Flashing Lights</a>
+        
       </div>
       <span class="cue approx" title="Approximate — not verified against the audio">
-        ~19:51
+        ~19:16
         
       </span>
       <div class="find">
@@ -350,13 +408,15 @@
     </li>
     
     <li class="track">
-      <span class="num">05</span>
+      <span class="num">07</span>
       <div class="meta">
         <span class="artist">Kathryn Hallberg</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Kathryn+Hallberg+Some+Dreams" target="_blank" rel="noopener">Some Dreams</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-08-kskq/" data-seek="1337" target="_blank" rel="noopener">Some Dreams</a>
+        
       </div>
       <span class="cue approx" title="Approximate — not verified against the audio">
-        ~22:51
+        ~22:17
         
       </span>
       <div class="find">
@@ -367,13 +427,15 @@
     </li>
     
     <li class="track">
-      <span class="num">06</span>
+      <span class="num">08</span>
       <div class="meta">
         <span class="artist">Aoife O&#39;Donovan</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Aoife+O%27Donovan+Galahad" target="_blank" rel="noopener">Galahad</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-08-kskq/" data-seek="1518" target="_blank" rel="noopener">Galahad</a>
+        
       </div>
       <span class="cue approx" title="Approximate — not verified against the audio">
-        ~25:51
+        ~25:18
         
       </span>
       <div class="find">
@@ -384,13 +446,15 @@
     </li>
     
     <li class="track">
-      <span class="num">07</span>
+      <span class="num">09</span>
       <div class="meta">
         <span class="artist">Benji Lewis</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Benji+Lewis+Head+Rush" target="_blank" rel="noopener">Head Rush</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-08-kskq/" data-seek="1758" target="_blank" rel="noopener">Head Rush</a>
+        
       </div>
       <span class="cue approx" title="Approximate — not verified against the audio">
-        ~29:51
+        ~29:18
         
       </span>
       <div class="find">
@@ -401,13 +465,15 @@
     </li>
     
     <li class="track">
-      <span class="num">08</span>
+      <span class="num">10</span>
       <div class="meta">
         <span class="artist">LEROCQUE</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=LEROCQUE+Not+Invisible" target="_blank" rel="noopener">Not Invisible</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-08-kskq/" data-seek="1939" target="_blank" rel="noopener">Not Invisible</a>
+        
       </div>
-      <span class="cue approx" title="Approximate — not verified against the audio">
-        ~32:51
+      <span class="cue">
+        32:19
         
       </span>
       <div class="find">
@@ -418,13 +484,15 @@
     </li>
     
     <li class="track">
-      <span class="num">09</span>
+      <span class="num">11</span>
       <div class="meta">
         <span class="artist">Krister Axel</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Krister+Axel+Harvest" target="_blank" rel="noopener">Harvest</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-08-kskq/" data-seek="2120" target="_blank" rel="noopener">Harvest</a>
+        
       </div>
       <span class="cue approx" title="Approximate — not verified against the audio">
-        ~35:51
+        ~35:20
         
       </span>
       <div class="find">
@@ -435,13 +503,15 @@
     </li>
     
     <li class="track">
-      <span class="num">10</span>
+      <span class="num">12</span>
       <div class="meta">
         <span class="artist">Jack Francis</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Jack+Francis+Wild+Eyes" target="_blank" rel="noopener">Wild Eyes</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-08-kskq/" data-seek="2360" target="_blank" rel="noopener">Wild Eyes</a>
+        
       </div>
       <span class="cue approx" title="Approximate — not verified against the audio">
-        ~39:51
+        ~39:20
         
       </span>
       <div class="find">
@@ -452,13 +522,15 @@
     </li>
     
     <li class="track">
-      <span class="num">11</span>
+      <span class="num">13</span>
       <div class="meta">
         <span class="artist">The Highwaymen</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=The+Highwaymen+Live+Forever" target="_blank" rel="noopener">Live Forever</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-08-kskq/" data-seek="2601" target="_blank" rel="noopener">Live Forever</a>
+        
       </div>
       <span class="cue approx" title="Approximate — not verified against the audio">
-        ~43:51
+        ~43:21
         
       </span>
       <div class="find">
@@ -469,13 +541,15 @@
     </li>
     
     <li class="track">
-      <span class="num">12</span>
+      <span class="num">14</span>
       <div class="meta">
         <span class="artist">Abigail Fierce</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Abigail+Fierce+14+Cigarettes" target="_blank" rel="noopener">14 Cigarettes</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-08-kskq/" data-seek="2722" target="_blank" rel="noopener">14 Cigarettes</a>
+        
       </div>
       <span class="cue approx" title="Approximate — not verified against the audio">
-        ~45:51
+        ~45:22
         
       </span>
       <div class="find">
@@ -486,13 +560,15 @@
     </li>
     
     <li class="track">
-      <span class="num">13</span>
+      <span class="num">15</span>
       <div class="meta">
         <span class="artist">Color Palette</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Color+Palette+Barcelona" target="_blank" rel="noopener">Barcelona</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-08-kskq/" data-seek="2988" target="_blank" rel="noopener">Barcelona</a>
+        
       </div>
-      <span class="cue approx" title="Approximate — not verified against the audio">
-        ~49:51
+      <span class="cue">
+        49:48
         
       </span>
       <div class="find">
@@ -503,13 +579,15 @@
     </li>
     
     <li class="track">
-      <span class="num">14</span>
+      <span class="num">16</span>
       <div class="meta">
         <span class="artist">Devon Cole</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Devon+Cole+I+Got+You" target="_blank" rel="noopener">I Got You</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-08-kskq/" data-seek="3264" target="_blank" rel="noopener">I Got You</a>
+        
       </div>
       <span class="cue approx" title="Approximate — not verified against the audio">
-        ~54:51
+        ~54:24
         
       </span>
       <div class="find">
@@ -520,13 +598,15 @@
     </li>
     
     <li class="track">
-      <span class="num">15</span>
+      <span class="num">17</span>
       <div class="meta">
         <span class="artist">D&#39;Angelo</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=D%27Angelo+Lady+-+Radio+Edit" target="_blank" rel="noopener">Lady - Radio Edit</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-08-kskq/" data-seek="3444" target="_blank" rel="noopener">Lady - Radio Edit</a>
+        
       </div>
       <span class="cue approx" title="Approximate — not verified against the audio">
-        ~57:51
+        ~57:24
         
       </span>
       <div class="find">
@@ -537,13 +617,15 @@
     </li>
     
     <li class="track">
-      <span class="num">16</span>
+      <span class="num">18</span>
       <div class="meta">
         <span class="artist">Coloma</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Coloma+Space+Cadet" target="_blank" rel="noopener">Space Cadet</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-08-kskq/" data-seek="3601" target="_blank" rel="noopener">Space Cadet</a>
+        
       </div>
-      <span class="cue approx" title="Approximate — not verified against the audio">
-        ~59:51
+      <span class="cue">
+        1:00:01
         
       </span>
       <div class="find">
@@ -554,13 +636,15 @@
     </li>
     
     <li class="track">
-      <span class="num">17</span>
+      <span class="num">19</span>
       <div class="meta">
         <span class="artist">The Satellite Station</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=The+Satellite+Station+Fine" target="_blank" rel="noopener">Fine</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-08-kskq/" data-seek="3805" target="_blank" rel="noopener">Fine</a>
+        
       </div>
       <span class="cue approx" title="Approximate — not verified against the audio">
-        ~1:03:51
+        ~1:03:25
         
       </span>
       <div class="find">
@@ -571,13 +655,15 @@
     </li>
     
     <li class="track">
-      <span class="num">18</span>
+      <span class="num">20</span>
       <div class="meta">
         <span class="artist">Margaret Glaspy</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Margaret+Glaspy+Michigan" target="_blank" rel="noopener">Michigan</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-08-kskq/" data-seek="4106" target="_blank" rel="noopener">Michigan</a>
+        
       </div>
-      <span class="cue">
-        1:08:51
+      <span class="cue approx" title="Approximate — not verified against the audio">
+        ~1:08:26
         
       </span>
       <div class="find">
@@ -588,27 +674,31 @@
     </li>
     
     <li class="track">
-      <span class="num">19</span>
+      <span class="num">21</span>
       <div class="meta">
-        <span class="artist">Jan Blomqvist</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Jan+Blomqvist+High+On+Beat+-+Sofi+Tukker+Remix" target="_blank" rel="noopener">High On Beat - Sofi Tukker Remix</a>
+        <span class="artist">CrawfishParish</span>
+        
+        <span class="title">Tennessee Whiskey</span>
+        
       </div>
-      <span class="cue approx" title="Approximate — not verified against the audio">
-        ~1:13:51
+      <span class="cue">
+        —
         
       </span>
       <div class="find">
-        <a href="https://www.youtube.com/results?search_query=Jan+Blomqvist+High+On+Beat+-+Sofi+Tukker+Remix" target="_blank" rel="noopener">YouTube</a>
-        <a href="https://open.spotify.com/search/Jan+Blomqvist+High+On+Beat+-+Sofi+Tukker+Remix" target="_blank" rel="noopener">Spotify</a>
-        <a href="https://bandcamp.com/search?q=Jan+Blomqvist+High+On+Beat+-+Sofi+Tukker+Remix" target="_blank" rel="noopener">Bandcamp</a>
+        <a href="https://www.youtube.com/results?search_query=CrawfishParish+Tennessee+Whiskey" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/CrawfishParish+Tennessee+Whiskey" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=CrawfishParish+Tennessee+Whiskey" target="_blank" rel="noopener">Bandcamp</a>
       </div>
     </li>
     
     <li class="track">
-      <span class="num">20</span>
+      <span class="num">22</span>
       <div class="meta">
         <span class="artist">The Spitting Pips</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=The+Spitting+Pips+Green+Eyes" target="_blank" rel="noopener">Green Eyes</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-08-kskq/" data-seek="4588" target="_blank" rel="noopener">Green Eyes</a>
+        
       </div>
       <span class="cue">
         1:16:28
@@ -622,13 +712,148 @@
     </li>
     
     <li class="track">
-      <span class="num">21</span>
+      <span class="num">23</span>
+      <div class="meta">
+        <span class="artist">Sophie Tex</span>
+        
+        <span class="title">Boyfriend</span>
+        
+      </div>
+      <span class="cue">
+        —
+        
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Sophie+Tex+Boyfriend" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Sophie+Tex+Boyfriend" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Sophie+Tex+Boyfriend" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">24</span>
+      <div class="meta">
+        <span class="artist">for EONS</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-08-kskq/" data-seek="4978" target="_blank" rel="noopener">OLD FRIEND</a>
+        
+      </div>
+      <span class="cue">
+        1:22:58
+        <span class="len">7:20</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=for+EONS+OLD+FRIEND" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/for+EONS+OLD+FRIEND" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=for+EONS+OLD+FRIEND" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">25</span>
+      <div class="meta">
+        <span class="artist">Halfway Down</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-08-kskq/" data-seek="5418" target="_blank" rel="noopener">Want You</a>
+        
+      </div>
+      <span class="cue">
+        1:30:18
+        <span class="len">3:25</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Halfway+Down+Want+You" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Halfway+Down+Want+You" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Halfway+Down+Want+You" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">26</span>
+      <div class="meta">
+        <span class="artist">Peter N. Knight</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-08-kskq/" data-seek="5623" target="_blank" rel="noopener">Mattress on the Floor</a>
+        
+      </div>
+      <span class="cue">
+        1:33:43
+        <span class="len">3:15</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Peter+N.+Knight+Mattress+on+the+Floor" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Peter+N.+Knight+Mattress+on+the+Floor" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Peter+N.+Knight+Mattress+on+the+Floor" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">27</span>
+      <div class="meta">
+        <span class="artist">Lazy Days</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-08-kskq/" data-seek="5818" target="_blank" rel="noopener">I Wanna Go Home</a>
+        
+      </div>
+      <span class="cue">
+        1:36:58
+        <span class="len">5:52</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Lazy+Days+I+Wanna+Go+Home" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Lazy+Days+I+Wanna+Go+Home" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Lazy+Days+I+Wanna+Go+Home" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">28</span>
+      <div class="meta">
+        <span class="artist">Mo Klé</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-08-kskq/" data-seek="6170" target="_blank" rel="noopener">Bird</a>
+        
+      </div>
+      <span class="cue">
+        1:42:50
+        <span class="len">3:00</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Mo+Kl%C3%A9+Bird" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Mo+Kl%C3%A9+Bird" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Mo+Kl%C3%A9+Bird" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">29</span>
+      <div class="meta">
+        <span class="artist">Margaret Glaspy</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-08-kskq/" data-seek="6350" target="_blank" rel="noopener">That Rose</a>
+        
+      </div>
+      <span class="cue">
+        1:45:50
+        
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Margaret+Glaspy+That+Rose" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Margaret+Glaspy+That+Rose" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Margaret+Glaspy+That+Rose" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">30</span>
       <div class="meta">
         <span class="artist">Beth Orton</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Beth+Orton+Cigarette+Curls" target="_blank" rel="noopener">Cigarette Curls</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-08-kskq/" data-seek="6575" target="_blank" rel="noopener">Cigarette Curls</a>
+        
       </div>
       <span class="cue approx" title="Approximate — not verified against the audio">
-        ~1:49:51
+        ~1:49:35
         
       </span>
       <div class="find">
@@ -639,13 +864,15 @@
     </li>
     
     <li class="track">
-      <span class="num">22</span>
+      <span class="num">31</span>
       <div class="meta">
         <span class="artist">Wild Rivers</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Wild+Rivers+Neon+Stars" target="_blank" rel="noopener">Neon Stars</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-08-kskq/" data-seek="7056" target="_blank" rel="noopener">Neon Stars</a>
+        
       </div>
       <span class="cue approx" title="Approximate — not verified against the audio">
-        ~1:57:51
+        ~1:57:36
         
       </span>
       <div class="find">
@@ -655,32 +882,33 @@
       </div>
     </li>
     
-    <li class="track">
-      <span class="num">23</span>
-      <div class="meta">
-        <span class="artist">Emily King</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Emily+King+Medal" target="_blank" rel="noopener">Medal</a>
-      </div>
-      <span class="cue approx" title="Approximate — not verified against the audio">
-        ~1:59:51
-        
-      </span>
-      <div class="find">
-        <a href="https://www.youtube.com/results?search_query=Emily+King+Medal" target="_blank" rel="noopener">YouTube</a>
-        <a href="https://open.spotify.com/search/Emily+King+Medal" target="_blank" rel="noopener">Spotify</a>
-        <a href="https://bandcamp.com/search?q=Emily+King+Medal" target="_blank" rel="noopener">Bandcamp</a>
-      </div>
-    </li>
-    
   </ol>
 
   <footer>
-    <span>CHILLFILTR · The Weekly Catch with Krister Axel</span>
+    <span>CHILLFILTR® · The Weekly Catch with Krister Axel</span>
     
     <span class="legend">~ approximate cue</span>
     
     <span>Support the artists — buy the record</span>
   </footer>
 </main>
+<script src="https://widget.mixcloud.com/media/js/widgetApi.js"></script>
+<script>
+  (function () {
+    var iframe = document.getElementById('mixcloud-widget');
+    if (!iframe || typeof Mixcloud === 'undefined') return;
+    var widget = Mixcloud.PlayerWidget(iframe);
+    document.querySelectorAll('.title[data-seek]').forEach(function (link) {
+      link.addEventListener('click', function (event) {
+        event.preventDefault();
+        var seconds = parseInt(link.getAttribute('data-seek'), 10);
+        widget.ready.then(function () {
+          widget.seek(seconds);
+          widget.play();
+        });
+      });
+    });
+  })();
+</script>
 </body>
 </html>

@@ -128,6 +128,9 @@
 
   .listen a:hover { border-color: var(--accent); color: var(--accent); }
 
+  .mixcloud-embed { margin-top: 16px; border-radius: 8px; overflow: hidden; }
+  .mixcloud-embed iframe { display: block; width: 100%; height: 60px; border: 0; }
+
   /* ---- tracklist ---- */
 
   .tracklist { list-style: none; }
@@ -172,7 +175,7 @@
     margin-top: 2px;
   }
 
-  .title:hover { text-decoration: underline; text-underline-offset: 3px; }
+  a.title:hover { text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 
   .cue {
     font-family: 'JetBrains Mono', ui-monospace, monospace;
@@ -184,6 +187,9 @@
   }
 
   .cue .len { display: block; font-size: 11px; color: var(--faint); margin-top: 3px; }
+
+  /* Unverified cues read as provisional rather than authoritative. */
+  .cue.approx { color: var(--faint); font-style: italic; }
 
   .find {
     grid-column: 2;
@@ -242,6 +248,7 @@
     .card { border: 0; max-width: none; }
     .track:hover { background: none; }
     .find { display: none; }
+    .mixcloud-embed { display: none; }
     .track { break-inside: avoid; padding: 8px 0; }
     header, footer { padding-left: 0; padding-right: 0; }
   }
@@ -251,7 +258,7 @@
 <main class="card">
   <header>
     <div class="imprint">
-      <span class="name">CHILLFILTR</span>
+      <span class="name">CHILLFILTR®</span>
       <span class="sep">/</span>
       <span>WC-20260701</span>
       <span class="sep">/</span>
@@ -272,7 +279,15 @@
       
       <a href="https://spinitron.com/KSKQ/pl/22661683/The-Weekly-Catch-with-Krister-Axel" target="_blank" rel="noopener">Spinitron playlist</a>
       
+      <a href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-01-kskq/" target="_blank" rel="noopener">Listen on Mixcloud</a>
+      
     </nav>
+    
+    
+    <div class="mixcloud-embed">
+      <iframe id="mixcloud-widget" title="Mixcloud player" allow="autoplay"
+        src="https://www.mixcloud.com/widget/iframe/?hide_cover=1&hide_artwork=1&mini=1&light=0&feed=%2Fchillfiltr%2Fweekly-catch-2026-07-01-kskq%2F"></iframe>
+    </div>
     
   </header>
 
@@ -282,7 +297,9 @@
       <span class="num">01</span>
       <div class="meta">
         <span class="artist">Beth Orton</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Beth+Orton+Otherside" target="_blank" rel="noopener">Otherside</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-01-kskq/" data-seek="105" target="_blank" rel="noopener">Otherside</a>
+        
       </div>
       <span class="cue">
         1:45
@@ -299,7 +316,9 @@
       <span class="num">02</span>
       <div class="meta">
         <span class="artist">The Random Hubiak Band</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=The+Random+Hubiak+Band+Thisll+Be+Our+Year+%28Rock+Barracuda+Edit%29" target="_blank" rel="noopener">Thisll Be Our Year (Rock Barracuda Edit)</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-01-kskq/" data-seek="478" target="_blank" rel="noopener">Thisll Be Our Year (Rock Barracuda Edit)</a>
+        
       </div>
       <span class="cue">
         07:58
@@ -316,7 +335,9 @@
       <span class="num">03</span>
       <div class="meta">
         <span class="artist">Mialuna</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Mialuna+I+Never+Meant+To+Let+You+Down" target="_blank" rel="noopener">I Never Meant To Let You Down</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-01-kskq/" data-seek="736" target="_blank" rel="noopener">I Never Meant To Let You Down</a>
+        
       </div>
       <span class="cue">
         12:16
@@ -333,7 +354,9 @@
       <span class="num">04</span>
       <div class="meta">
         <span class="artist">The Replicants</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=The+Replicants+I+Remember" target="_blank" rel="noopener">I Remember</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-01-kskq/" data-seek="1026" target="_blank" rel="noopener">I Remember</a>
+        
       </div>
       <span class="cue">
         17:06
@@ -350,7 +373,9 @@
       <span class="num">05</span>
       <div class="meta">
         <span class="artist">The Pinkerton Raid</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=The+Pinkerton+Raid+The+Fight+for+Freedom+Was+in+VOGUE" target="_blank" rel="noopener">The Fight for Freedom Was in VOGUE</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-01-kskq/" data-seek="1303" target="_blank" rel="noopener">The Fight for Freedom Was in VOGUE</a>
+        
       </div>
       <span class="cue">
         21:43
@@ -367,7 +392,9 @@
       <span class="num">06</span>
       <div class="meta">
         <span class="artist">cielo</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=cielo+Piedra+Blanda" target="_blank" rel="noopener">Piedra Blanda</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-01-kskq/" data-seek="1605" target="_blank" rel="noopener">Piedra Blanda</a>
+        
       </div>
       <span class="cue">
         26:45
@@ -384,7 +411,9 @@
       <span class="num">07</span>
       <div class="meta">
         <span class="artist">Kennedy Taylor</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Kennedy+Taylor+Temporary" target="_blank" rel="noopener">Temporary</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-01-kskq/" data-seek="1879" target="_blank" rel="noopener">Temporary</a>
+        
       </div>
       <span class="cue">
         31:19
@@ -401,7 +430,9 @@
       <span class="num">08</span>
       <div class="meta">
         <span class="artist">John Kolar</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=John+Kolar+Tie+My+Shoes+-+live+at+the+piano" target="_blank" rel="noopener">Tie My Shoes - live at the piano</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-01-kskq/" data-seek="2080" target="_blank" rel="noopener">Tie My Shoes - live at the piano</a>
+        
       </div>
       <span class="cue">
         34:40
@@ -418,7 +449,9 @@
       <span class="num">09</span>
       <div class="meta">
         <span class="artist">Beth Orton</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Beth+Orton+Waiting" target="_blank" rel="noopener">Waiting</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-01-kskq/" data-seek="2438" target="_blank" rel="noopener">Waiting</a>
+        
       </div>
       <span class="cue">
         40:38
@@ -435,7 +468,9 @@
       <span class="num">10</span>
       <div class="meta">
         <span class="artist">Nolen Abel</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Nolen+Abel+The+Sound+%28God+Help+Me%29" target="_blank" rel="noopener">The Sound (God Help Me)</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-01-kskq/" data-seek="2735" target="_blank" rel="noopener">The Sound (God Help Me)</a>
+        
       </div>
       <span class="cue">
         45:35
@@ -452,7 +487,9 @@
       <span class="num">11</span>
       <div class="meta">
         <span class="artist">cielo</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=cielo+Time+is+Over" target="_blank" rel="noopener">Time is Over</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-01-kskq/" data-seek="2977" target="_blank" rel="noopener">Time is Over</a>
+        
       </div>
       <span class="cue">
         49:37
@@ -469,7 +506,9 @@
       <span class="num">12</span>
       <div class="meta">
         <span class="artist">Donovan Woods</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Donovan+Woods+These+Things+Happen" target="_blank" rel="noopener">These Things Happen</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-01-kskq/" data-seek="3338" target="_blank" rel="noopener">These Things Happen</a>
+        
       </div>
       <span class="cue">
         55:38
@@ -486,7 +525,9 @@
       <span class="num">13</span>
       <div class="meta">
         <span class="artist">New Wolves</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=New+Wolves+We+Are+Crowds" target="_blank" rel="noopener">We Are Crowds</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-01-kskq/" data-seek="3515" target="_blank" rel="noopener">We Are Crowds</a>
+        
       </div>
       <span class="cue">
         58:35
@@ -503,7 +544,9 @@
       <span class="num">14</span>
       <div class="meta">
         <span class="artist">Castilho</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Castilho+Tripe%CC%81" target="_blank" rel="noopener">Tripé</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-01-kskq/" data-seek="3600" target="_blank" rel="noopener">Tripé</a>
+        
       </div>
       <span class="cue">
         1:00:00
@@ -520,7 +563,9 @@
       <span class="num">15</span>
       <div class="meta">
         <span class="artist">Steve Stout</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Steve+Stout+waitin+on+mine" target="_blank" rel="noopener">waitin on mine</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-01-kskq/" data-seek="3795" target="_blank" rel="noopener">waitin on mine</a>
+        
       </div>
       <span class="cue">
         1:03:15
@@ -537,7 +582,9 @@
       <span class="num">16</span>
       <div class="meta">
         <span class="artist">Mazat</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Mazat+Impulse+-+Unholy" target="_blank" rel="noopener">Impulse - Unholy</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-01-kskq/" data-seek="4098" target="_blank" rel="noopener">Impulse - Unholy</a>
+        
       </div>
       <span class="cue">
         1:08:18
@@ -554,7 +601,9 @@
       <span class="num">17</span>
       <div class="meta">
         <span class="artist">Kings Elliot</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Kings+Elliot+BORN+BLUE+%28THE+SONG%29" target="_blank" rel="noopener">BORN BLUE (THE SONG)</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-01-kskq/" data-seek="4295" target="_blank" rel="noopener">BORN BLUE (THE SONG)</a>
+        
       </div>
       <span class="cue">
         1:11:35
@@ -571,7 +620,9 @@
       <span class="num">18</span>
       <div class="meta">
         <span class="artist">Beth Orton</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Beth+Orton+Love+You+Right" target="_blank" rel="noopener">Love You Right</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-01-kskq/" data-seek="4532" target="_blank" rel="noopener">Love You Right</a>
+        
       </div>
       <span class="cue">
         1:15:32
@@ -588,7 +639,9 @@
       <span class="num">19</span>
       <div class="meta">
         <span class="artist">Ju Kaia</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Ju+Kaia+Committed+No+Crime" target="_blank" rel="noopener">Committed No Crime</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-01-kskq/" data-seek="4878" target="_blank" rel="noopener">Committed No Crime</a>
+        
       </div>
       <span class="cue">
         1:21:18
@@ -605,7 +658,9 @@
       <span class="num">20</span>
       <div class="meta">
         <span class="artist">Theorem of joy</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Theorem+of+joy+New+Spring" target="_blank" rel="noopener">New Spring</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-01-kskq/" data-seek="5041" target="_blank" rel="noopener">New Spring</a>
+        
       </div>
       <span class="cue">
         1:24:01
@@ -622,7 +677,9 @@
       <span class="num">21</span>
       <div class="meta">
         <span class="artist">The Black Crowes</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=The+Black+Crowes+No+Speak+No+Slave" target="_blank" rel="noopener">No Speak No Slave</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-01-kskq/" data-seek="5400" target="_blank" rel="noopener">No Speak No Slave</a>
+        
       </div>
       <span class="cue">
         1:30:00
@@ -639,7 +696,9 @@
       <span class="num">22</span>
       <div class="meta">
         <span class="artist">Spoon</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Spoon+She%27s+Fine%2C+She%27s+Mine" target="_blank" rel="noopener">She&#39;s Fine, She&#39;s Mine</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-01-kskq/" data-seek="5640" target="_blank" rel="noopener">She&#39;s Fine, She&#39;s Mine</a>
+        
       </div>
       <span class="cue">
         1:34:00
@@ -656,7 +715,9 @@
       <span class="num">23</span>
       <div class="meta">
         <span class="artist">Houndmouth</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Houndmouth+McKenzie" target="_blank" rel="noopener">McKenzie</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-01-kskq/" data-seek="5962" target="_blank" rel="noopener">McKenzie</a>
+        
       </div>
       <span class="cue">
         1:39:22
@@ -673,7 +734,9 @@
       <span class="num">24</span>
       <div class="meta">
         <span class="artist">D&#39;Angelo</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=D%27Angelo+Feel+Like+Makin%27+Love" target="_blank" rel="noopener">Feel Like Makin&#39; Love</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-01-kskq/" data-seek="6155" target="_blank" rel="noopener">Feel Like Makin&#39; Love</a>
+        
       </div>
       <span class="cue">
         1:42:35
@@ -690,7 +753,9 @@
       <span class="num">25</span>
       <div class="meta">
         <span class="artist">Wilder Woods</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Wilder+Woods+Get+It+Back" target="_blank" rel="noopener">Get It Back</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-01-kskq/" data-seek="6538" target="_blank" rel="noopener">Get It Back</a>
+        
       </div>
       <span class="cue">
         1:48:58
@@ -707,7 +772,9 @@
       <span class="num">26</span>
       <div class="meta">
         <span class="artist">Rufus Wainwright</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Rufus+Wainwright+Poses" target="_blank" rel="noopener">Poses</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-01-kskq/" data-seek="6742" target="_blank" rel="noopener">Poses</a>
+        
       </div>
       <span class="cue">
         1:52:22
@@ -724,7 +791,9 @@
       <span class="num">27</span>
       <div class="meta">
         <span class="artist">Margo Cilker</span>
-        <a class="title" href="https://www.youtube.com/results?search_query=Margo+Cilker+Keep+It+on+A+Burner" target="_blank" rel="noopener">Keep It on A Burner</a>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-07-01-kskq/" data-seek="7045" target="_blank" rel="noopener">Keep It on A Burner</a>
+        
       </div>
       <span class="cue">
         1:57:25
@@ -740,9 +809,28 @@
   </ol>
 
   <footer>
-    <span>CHILLFILTR · The Weekly Catch with Krister Axel</span>
+    <span>CHILLFILTR® · The Weekly Catch with Krister Axel</span>
+    
     <span>Support the artists — buy the record</span>
   </footer>
 </main>
+<script src="https://widget.mixcloud.com/media/js/widgetApi.js"></script>
+<script>
+  (function () {
+    var iframe = document.getElementById('mixcloud-widget');
+    if (!iframe || typeof Mixcloud === 'undefined') return;
+    var widget = Mixcloud.PlayerWidget(iframe);
+    document.querySelectorAll('.title[data-seek]').forEach(function (link) {
+      link.addEventListener('click', function (event) {
+        event.preventDefault();
+        var seconds = parseInt(link.getAttribute('data-seek'), 10);
+        widget.ready.then(function () {
+          widget.seek(seconds);
+          widget.play();
+        });
+      });
+    });
+  })();
+</script>
 </body>
 </html>

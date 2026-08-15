@@ -40,6 +40,18 @@ def link_kind(url)
   end
 end
 
+def mixcloud_url(setlist)
+  setlist.links.find { |url| url =~ /mixcloud/ }
+end
+
+# The widget iframe wants the show's path, URL-encoded, as its "feed" param.
+def mixcloud_feed(url)
+  path = URI.parse(url).path
+  URI.encode_www_form_component(path)
+rescue URI::InvalidURIError
+  nil
+end
+
 def pretty_date(str)
   Date.parse(str).strftime('%B %-d, %Y')
 rescue ArgumentError, TypeError
@@ -202,6 +214,9 @@ TEMPLATE = <<~'HTML'
 
     .listen a:hover { border-color: var(--accent); color: var(--accent); }
 
+    .mixcloud-embed { margin-top: 16px; border-radius: 8px; overflow: hidden; }
+    .mixcloud-embed iframe { display: block; width: 100%; height: 60px; border: 0; }
+
     /* ---- tracklist ---- */
 
     .tracklist { list-style: none; }
@@ -246,7 +261,7 @@ TEMPLATE = <<~'HTML'
       margin-top: 2px;
     }
 
-    .title:hover { text-decoration: underline; text-underline-offset: 3px; }
+    a.title:hover { text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 
     .cue {
       font-family: 'JetBrains Mono', ui-monospace, monospace;
@@ -319,6 +334,7 @@ TEMPLATE = <<~'HTML'
       .card { border: 0; max-width: none; }
       .track:hover { background: none; }
       .find { display: none; }
+      .mixcloud-embed { display: none; }
       .track { break-inside: avoid; padding: 8px 0; }
       header, footer { padding-left: 0; padding-right: 0; }
     }
@@ -351,6 +367,12 @@ TEMPLATE = <<~'HTML'
         <% end %>
       </nav>
       <% end %>
+      <% if mc_feed %>
+      <div class="mixcloud-embed">
+        <iframe id="mixcloud-widget" title="Mixcloud player" allow="autoplay"
+          src="https://www.mixcloud.com/widget/iframe/?hide_cover=1&hide_artwork=1&mini=1&light=<%= light ? 1 : 0 %>&feed=<%= mc_feed %>"></iframe>
+      </div>
+      <% end %>
     </header>
 
     <ol class="tracklist">
@@ -359,7 +381,11 @@ TEMPLATE = <<~'HTML'
         <span class="num"><%= format('%02d', track.num) %></span>
         <div class="meta">
           <% if track.artist %><span class="artist"><%= h(track.artist) %></span><% end %>
-          <a class="title" href="<%= h(search_url(:youtube, track.query)) %>" target="_blank" rel="noopener"><%= h(track.title) %></a>
+          <% if mc_feed && track.cue_seconds %>
+          <a class="title" href="<%= h(mc_url) %>" data-seek="<%= track.cue_seconds.round %>" target="_blank" rel="noopener"><%= h(track.title) %></a>
+          <% else %>
+          <span class="title"><%= h(track.title) %></span>
+          <% end %>
         </div>
         <span class="cue<%= track.approx ? ' approx' : '' %>"<%= track.approx ? ' title="Approximate — not verified against the audio"' : '' %>>
           <%= track.approx ? '~' : '' %><%= h(track.cue || '—') %>
@@ -382,13 +408,33 @@ TEMPLATE = <<~'HTML'
       <span>Support the artists — buy the record</span>
     </footer>
   </main>
+  <% if mc_feed %>
+  <script src="https://widget.mixcloud.com/media/js/widgetApi.js"></script>
+  <script>
+    (function () {
+      var iframe = document.getElementById('mixcloud-widget');
+      if (!iframe || typeof Mixcloud === 'undefined') return;
+      var widget = Mixcloud.PlayerWidget(iframe);
+      document.querySelectorAll('.title[data-seek]').forEach(function (link) {
+        link.addEventListener('click', function (event) {
+          event.preventDefault();
+          var seconds = parseInt(link.getAttribute('data-seek'), 10);
+          widget.ready.then(function () {
+            widget.seek(seconds);
+            widget.play();
+          });
+        });
+      });
+    })();
+  </script>
+  <% end %>
   </body>
   </html>
 HTML
 
 # --- cli ---------------------------------------------------------------------
 
-options = { label: 'CHILLFILTR', light: false, curator: nil, headline: nil }
+options = { label: 'CHILLFILTR®', light: false, curator: nil, headline: nil }
 
 parser = OptionParser.new do |opts|
   opts.banner = "Usage: #{File.basename($PROGRAM_NAME)} <setlist.txt> [options]"
@@ -426,6 +472,8 @@ label = options[:label]
 light = options[:light]
 curator = options[:curator] || setlist.show.to_s[/with\s+(.+)\z/i, 1]
 headline = options[:headline] || setlist.show.to_s.sub(/\s*with\s+.+\z/i, '')
+mc_url = mixcloud_url(setlist)
+mc_feed = mc_url && mixcloud_feed(mc_url)
 
 html = ERB.new(TEMPLATE, trim_mode: '<>').result(binding)
 out = options[:out] || "#{File.basename(path, '.*')}-card.html"

@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Weekly Catch with Krister Axel — August 5, 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0f0f13;
+    --surface: #17171e;
+    --surface-2: #1d1d26;
+    --border: #2a2a38;
+    --text: #e8e8f0;
+    --muted: #8b8ba6;
+    --faint: #5f5f78;
+    --accent: #ff5c5c;
+    --radius: 14px;
+  }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.45;
+    padding: 32px 16px 64px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .card {
+    max-width: 820px;
+    margin: 0 auto;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  /* ---- masthead ---- */
+
+  header { padding: 34px 32px 26px; border-bottom: 1px solid var(--border); }
+
+  .imprint {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 10px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  .imprint .name { color: var(--accent); font-weight: 500; }
+  .imprint .sep { opacity: 0.5; }
+
+  header h1 {
+    margin-top: 14px;
+    font-size: clamp(30px, 6vw, 52px);
+    font-weight: 900;
+    letter-spacing: -0.035em;
+    line-height: 1.02;
+  }
+
+  header .date {
+    margin-top: 10px;
+    font-size: 15px;
+    color: var(--muted);
+    letter-spacing: 0.01em;
+  }
+
+  .stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .stat {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 5px 12px;
+  }
+
+  .stat b { color: var(--text); font-weight: 600; }
+
+  .listen {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .listen a {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--text);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 15px;
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+
+  .listen a::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .listen a:hover { border-color: var(--accent); color: var(--accent); }
+
+  .mixcloud-embed { margin-top: 16px; border-radius: 8px; overflow: hidden; }
+  .mixcloud-embed iframe { display: block; width: 100%; height: 60px; border: 0; }
+
+  /* ---- tracklist ---- */
+
+  .tracklist { list-style: none; }
+
+  .track {
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr) auto;
+    align-items: baseline;
+    gap: 4px 14px;
+    padding: 14px 32px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .track:last-child { border-bottom: 0; }
+  .track:hover { background: var(--surface-2); }
+
+  .num {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--faint);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .meta { min-width: 0; }
+
+  .artist {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .title {
+    display: block;
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.012em;
+    color: var(--text);
+    text-decoration: none;
+    margin-top: 2px;
+  }
+
+  a.title:hover { text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+
+  .cue {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    text-align: right;
+  }
+
+  .cue .len { display: block; font-size: 11px; color: var(--faint); margin-top: 3px; }
+
+  /* Unverified cues read as provisional rather than authoritative. */
+  .cue.approx { color: var(--faint); font-style: italic; }
+
+  .find {
+    grid-column: 2;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 6px;
+  }
+
+  .find a {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--faint);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .find a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  a:focus-visible, .title:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  footer {
+    padding: 22px 32px 26px;
+    border-top: 1px solid var(--border);
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--faint);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+
+  @media (max-width: 560px) {
+    body { padding: 16px 10px 40px; }
+    header { padding: 26px 20px 22px; }
+    .track { padding: 13px 20px; grid-template-columns: 30px minmax(0, 1fr) auto; gap: 4px 10px; }
+    footer { padding: 18px 20px 22px; }
+    .title { font-size: 16px; }
+  }
+
+  @media print {
+    body { background: #fff; color: #000; padding: 0; }
+    .card { border: 0; max-width: none; }
+    .track:hover { background: none; }
+    .find { display: none; }
+    .mixcloud-embed { display: none; }
+    .track { break-inside: avoid; padding: 8px 0; }
+    header, footer { padding-left: 0; padding-right: 0; }
+  }
+</style>
+</head>
+<body>
+<main class="card">
+  <header>
+    <div class="imprint">
+      <span class="name">CHILLFILTR®</span>
+      <span class="sep">/</span>
+      <span>WC-20260805</span>
+      <span class="sep">/</span>
+      <span>Compilation</span>
+    </div>
+    <h1>The Weekly Catch</h1>
+    
+    <p class="date">August 5, 2026 · curated by Krister Axel</p>
+    
+    <div class="stats">
+      <span class="stat"><b>36</b> tracks</span>
+      
+      <span class="stat"><b>2h 0m+</b> runtime</span>
+      
+    </div>
+    
+    <nav class="listen">
+      
+      <a href="https://spinitron.com/KSKQ/pl/22827996/The-Weekly-Catch-with-Krister-Axel" target="_blank" rel="noopener">Spinitron playlist</a>
+      
+      <a href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" target="_blank" rel="noopener">Listen on Mixcloud</a>
+      
+    </nav>
+    
+    
+    <div class="mixcloud-embed">
+      <iframe id="mixcloud-widget" title="Mixcloud player" allow="autoplay"
+        src="https://www.mixcloud.com/widget/iframe/?hide_cover=1&hide_artwork=1&mini=1&light=0&feed=%2Fchillfiltr%2Fweekly-catch-2026-08-05-kskq%2F"></iframe>
+    </div>
+    
+  </header>
+
+  <ol class="tracklist">
+    
+    <li class="track">
+      <span class="num">01</span>
+      <div class="meta">
+        <span class="artist">Robert Finley</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="0" target="_blank" rel="noopener">Nobody Wants To Be Lonely</a>
+        
+      </div>
+      <span class="cue">
+        0:00
+        <span class="len">3:14</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Robert+Finley+Nobody+Wants+To+Be+Lonely" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Robert+Finley+Nobody+Wants+To+Be+Lonely" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Robert+Finley+Nobody+Wants+To+Be+Lonely" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">02</span>
+      <div class="meta">
+        <span class="artist">Ariza</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="194" target="_blank" rel="noopener">Distant</a>
+        
+      </div>
+      <span class="cue">
+        3:14
+        <span class="len">4:23</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Ariza+Distant" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Ariza+Distant" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Ariza+Distant" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">03</span>
+      <div class="meta">
+        <span class="artist">Renee &amp; Friends</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="457" target="_blank" rel="noopener">super fragile world</a>
+        
+      </div>
+      <span class="cue">
+        7:37
+        <span class="len">2:03</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Renee+%26+Friends+super+fragile+world" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Renee+%26+Friends+super+fragile+world" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Renee+%26+Friends+super+fragile+world" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">04</span>
+      <div class="meta">
+        <span class="artist">Daisy the Great</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="580" target="_blank" rel="noopener">Record Player (with AJR)</a>
+        
+      </div>
+      <span class="cue">
+        9:40
+        <span class="len">2:30</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Daisy+the+Great+Record+Player+%28with+AJR%29" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Daisy+the+Great+Record+Player+%28with+AJR%29" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Daisy+the+Great+Record+Player+%28with+AJR%29" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">05</span>
+      <div class="meta">
+        <span class="artist">Georgia Harmer</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="730" target="_blank" rel="noopener">Just The Feeling</a>
+        
+      </div>
+      <span class="cue">
+        12:10
+        <span class="len">5:36</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Georgia+Harmer+Just+The+Feeling" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Georgia+Harmer+Just+The+Feeling" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Georgia+Harmer+Just+The+Feeling" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">06</span>
+      <div class="meta">
+        <span class="artist">The Wheel Workers</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="1066" target="_blank" rel="noopener">Rainbows (Live)</a>
+        
+      </div>
+      <span class="cue">
+        17:46
+        <span class="len">4:14</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=The+Wheel+Workers+Rainbows+%28Live%29" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/The+Wheel+Workers+Rainbows+%28Live%29" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=The+Wheel+Workers+Rainbows+%28Live%29" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">07</span>
+      <div class="meta">
+        <span class="artist">Sharon Van Etten</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="1320" target="_blank" rel="noopener">Love More (By Fiona Apple)</a>
+        
+      </div>
+      <span class="cue">
+        22:00
+        <span class="len">4:32</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Sharon+Van+Etten+Love+More+%28By+Fiona+Apple%29" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Sharon+Van+Etten+Love+More+%28By+Fiona+Apple%29" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Sharon+Van+Etten+Love+More+%28By+Fiona+Apple%29" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">08</span>
+      <div class="meta">
+        <span class="artist">Vilde</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="1592" target="_blank" rel="noopener">Isle</a>
+        
+      </div>
+      <span class="cue">
+        26:32
+        <span class="len">4:19</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Vilde+Isle" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Vilde+Isle" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Vilde+Isle" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">09</span>
+      <div class="meta">
+        <span class="artist">Tim Reynolds</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="1851" target="_blank" rel="noopener">Guardian Angels (ft. Nikki Glaspie)</a>
+        
+      </div>
+      <span class="cue">
+        30:51
+        <span class="len">4:34</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Tim+Reynolds+Guardian+Angels+%28ft.+Nikki+Glaspie%29" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Tim+Reynolds+Guardian+Angels+%28ft.+Nikki+Glaspie%29" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Tim+Reynolds+Guardian+Angels+%28ft.+Nikki+Glaspie%29" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">10</span>
+      <div class="meta">
+        <span class="artist">quinnie</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="2125" target="_blank" rel="noopener">shape (flounder bonus track)</a>
+        
+      </div>
+      <span class="cue">
+        35:25
+        <span class="len">2:45</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=quinnie+shape+%28flounder+bonus+track%29" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/quinnie+shape+%28flounder+bonus+track%29" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=quinnie+shape+%28flounder+bonus+track%29" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">11</span>
+      <div class="meta">
+        <span class="artist">boygenius</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="2290" target="_blank" rel="noopener">Cool About It</a>
+        
+      </div>
+      <span class="cue">
+        38:10
+        <span class="len">3:00</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=boygenius+Cool+About+It" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/boygenius+Cool+About+It" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=boygenius+Cool+About+It" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">12</span>
+      <div class="meta">
+        <span class="artist">Wes Collins</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="2470" target="_blank" rel="noopener">Cocoon</a>
+        
+      </div>
+      <span class="cue">
+        41:10
+        <span class="len">3:36</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Wes+Collins+Cocoon" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Wes+Collins+Cocoon" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Wes+Collins+Cocoon" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">13</span>
+      <div class="meta">
+        <span class="artist">Broken Social Scene</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="2686" target="_blank" rel="noopener">This House Is On Fire</a>
+        
+      </div>
+      <span class="cue">
+        44:46
+        <span class="len">4:01</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Broken+Social+Scene+This+House+Is+On+Fire" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Broken+Social+Scene+This+House+Is+On+Fire" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Broken+Social+Scene+This+House+Is+On+Fire" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">14</span>
+      <div class="meta">
+        <span class="artist">Papercuts</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="2927" target="_blank" rel="noopener">End Times Daily</a>
+        
+      </div>
+      <span class="cue">
+        48:47
+        <span class="len">2:40</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Papercuts+End+Times+Daily" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Papercuts+End+Times+Daily" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Papercuts+End+Times+Daily" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">15</span>
+      <div class="meta">
+        <span class="artist">CrawfishParish</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="3087" target="_blank" rel="noopener">Tennessee Whiskey</a>
+        
+      </div>
+      <span class="cue">
+        51:27
+        <span class="len">1:37</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=CrawfishParish+Tennessee+Whiskey" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/CrawfishParish+Tennessee+Whiskey" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=CrawfishParish+Tennessee+Whiskey" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">16</span>
+      <div class="meta">
+        <span class="artist">True Tales</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="3184" target="_blank" rel="noopener">Cynthia</a>
+        
+      </div>
+      <span class="cue">
+        53:04
+        <span class="len">2:59</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=True+Tales+Cynthia" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/True+Tales+Cynthia" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=True+Tales+Cynthia" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">17</span>
+      <div class="meta">
+        <span class="artist">MarissaAnn</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="3363" target="_blank" rel="noopener">the sequel nobody wanted</a>
+        
+      </div>
+      <span class="cue">
+        56:03
+        <span class="len">2:35</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=MarissaAnn+the+sequel+nobody+wanted" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/MarissaAnn+the+sequel+nobody+wanted" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=MarissaAnn+the+sequel+nobody+wanted" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">18</span>
+      <div class="meta">
+        <span class="artist">Joel Ansett</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="3518" target="_blank" rel="noopener">I&#39;ll Be Here</a>
+        
+      </div>
+      <span class="cue">
+        58:38
+        <span class="len">1:21</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Joel+Ansett+I%27ll+Be+Here" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Joel+Ansett+I%27ll+Be+Here" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Joel+Ansett+I%27ll+Be+Here" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">19</span>
+      <div class="meta">
+        <span class="artist">Margaret Glaspy</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="3599" target="_blank" rel="noopener">Irish Goodbye</a>
+        
+      </div>
+      <span class="cue">
+        59:59
+        <span class="len">3:46</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Margaret+Glaspy+Irish+Goodbye" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Margaret+Glaspy+Irish+Goodbye" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Margaret+Glaspy+Irish+Goodbye" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">20</span>
+      <div class="meta">
+        <span class="artist">Early Winters</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="3825" target="_blank" rel="noopener">Vanishing Act</a>
+        
+      </div>
+      <span class="cue">
+        1:03:45
+        <span class="len">4:03</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Early+Winters+Vanishing+Act" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Early+Winters+Vanishing+Act" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Early+Winters+Vanishing+Act" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">21</span>
+      <div class="meta">
+        <span class="artist">Tablefox</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="4068" target="_blank" rel="noopener">Into Your Eyes</a>
+        
+      </div>
+      <span class="cue">
+        1:07:48
+        <span class="len">3:45</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Tablefox+Into+Your+Eyes" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Tablefox+Into+Your+Eyes" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Tablefox+Into+Your+Eyes" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">22</span>
+      <div class="meta">
+        <span class="artist">Jeffrey Martin and Anna Tivel</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="4293" target="_blank" rel="noopener">If I Only Had a Brain</a>
+        
+      </div>
+      <span class="cue">
+        1:11:33
+        <span class="len">2:05</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Jeffrey+Martin+and+Anna+Tivel+If+I+Only+Had+a+Brain" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Jeffrey+Martin+and+Anna+Tivel+If+I+Only+Had+a+Brain" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Jeffrey+Martin+and+Anna+Tivel+If+I+Only+Had+a+Brain" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">23</span>
+      <div class="meta">
+        <span class="artist">Bonny Light Horseman</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="4418" target="_blank" rel="noopener">Lover Take It Easy</a>
+        
+      </div>
+      <span class="cue">
+        1:13:38
+        <span class="len">3:32</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Bonny+Light+Horseman+Lover+Take+It+Easy" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Bonny+Light+Horseman+Lover+Take+It+Easy" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Bonny+Light+Horseman+Lover+Take+It+Easy" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">24</span>
+      <div class="meta">
+        <span class="artist">Margo Cilker</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="4630" target="_blank" rel="noopener">Keep It on A Burner</a>
+        
+      </div>
+      <span class="cue">
+        1:17:10
+        <span class="len">4:27</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Margo+Cilker+Keep+It+on+A+Burner" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Margo+Cilker+Keep+It+on+A+Burner" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Margo+Cilker+Keep+It+on+A+Burner" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">25</span>
+      <div class="meta">
+        <span class="artist">Michael Suddes</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="4897" target="_blank" rel="noopener">Dragonfly</a>
+        
+      </div>
+      <span class="cue">
+        1:21:37
+        <span class="len">4:01</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Michael+Suddes+Dragonfly" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Michael+Suddes+Dragonfly" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Michael+Suddes+Dragonfly" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">26</span>
+      <div class="meta">
+        <span class="artist">Vulfpeck</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="5138" target="_blank" rel="noopener">For Survival</a>
+        
+      </div>
+      <span class="cue">
+        1:25:38
+        <span class="len">3:41</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Vulfpeck+For+Survival" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Vulfpeck+For+Survival" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Vulfpeck+For+Survival" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">27</span>
+      <div class="meta">
+        <span class="artist">Brittain Ashford</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="5359" target="_blank" rel="noopener">Could’ve Done You Better</a>
+        
+      </div>
+      <span class="cue">
+        1:29:19
+        <span class="len">3:19</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Brittain+Ashford+Could%E2%80%99ve+Done+You+Better" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Brittain+Ashford+Could%E2%80%99ve+Done+You+Better" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Brittain+Ashford+Could%E2%80%99ve+Done+You+Better" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">28</span>
+      <div class="meta">
+        <span class="artist">Tiphanie Doucet</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="5558" target="_blank" rel="noopener">It Ain&#39;t over &#39;til It&#39;s over</a>
+        
+      </div>
+      <span class="cue">
+        1:32:38
+        <span class="len">3:12</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Tiphanie+Doucet+It+Ain%27t+over+%27til+It%27s+over" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Tiphanie+Doucet+It+Ain%27t+over+%27til+It%27s+over" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Tiphanie+Doucet+It+Ain%27t+over+%27til+It%27s+over" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">29</span>
+      <div class="meta">
+        <span class="artist">Sister.</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="5750" target="_blank" rel="noopener">Internet Baby</a>
+        
+      </div>
+      <span class="cue">
+        1:35:50
+        <span class="len">3:59</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Sister.+Internet+Baby" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Sister.+Internet+Baby" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Sister.+Internet+Baby" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">30</span>
+      <div class="meta">
+        <span class="artist">Jesper Hasnaoui</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="5989" target="_blank" rel="noopener">The Other Side</a>
+        
+      </div>
+      <span class="cue">
+        1:39:49
+        <span class="len">3:09</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Jesper+Hasnaoui+The+Other+Side" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Jesper+Hasnaoui+The+Other+Side" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Jesper+Hasnaoui+The+Other+Side" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">31</span>
+      <div class="meta">
+        <span class="artist">JOSEPH</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="6178" target="_blank" rel="noopener">Nervous System</a>
+        
+      </div>
+      <span class="cue">
+        1:42:58
+        <span class="len">2:37</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=JOSEPH+Nervous+System" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/JOSEPH+Nervous+System" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=JOSEPH+Nervous+System" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">32</span>
+      <div class="meta">
+        <span class="artist">The Lone Bellow</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="6335" target="_blank" rel="noopener">After The Rain</a>
+        
+      </div>
+      <span class="cue">
+        1:45:35
+        <span class="len">3:13</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=The+Lone+Bellow+After+The+Rain" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/The+Lone+Bellow+After+The+Rain" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=The+Lone+Bellow+After+The+Rain" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">33</span>
+      <div class="meta">
+        <span class="artist">The Votadini</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="6528" target="_blank" rel="noopener">Auxetic</a>
+        
+      </div>
+      <span class="cue">
+        1:48:48
+        <span class="len">3:36</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=The+Votadini+Auxetic" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/The+Votadini+Auxetic" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=The+Votadini+Auxetic" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">34</span>
+      <div class="meta">
+        <span class="artist">PRAX x CHELLYX</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="6744" target="_blank" rel="noopener">CRAWLING BACK</a>
+        
+      </div>
+      <span class="cue">
+        1:52:24
+        <span class="len">2:23</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=PRAX+x+CHELLYX+CRAWLING+BACK" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/PRAX+x+CHELLYX+CRAWLING+BACK" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=PRAX+x+CHELLYX+CRAWLING+BACK" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">35</span>
+      <div class="meta">
+        <span class="artist">KALEO</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="6887" target="_blank" rel="noopener">Hey Gringo</a>
+        
+      </div>
+      <span class="cue">
+        1:54:47
+        <span class="len">5:13</span>
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=KALEO+Hey+Gringo" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/KALEO+Hey+Gringo" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=KALEO+Hey+Gringo" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+    <li class="track">
+      <span class="num">36</span>
+      <div class="meta">
+        <span class="artist">Rich Jacques</span>
+        
+        <a class="title" href="https://www.mixcloud.com/chillfiltr/weekly-catch-2026-08-05-kskq/" data-seek="7200" target="_blank" rel="noopener">Montecito</a>
+        
+      </div>
+      <span class="cue">
+        2:00:00
+        
+      </span>
+      <div class="find">
+        <a href="https://www.youtube.com/results?search_query=Rich+Jacques+Montecito" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/search/Rich+Jacques+Montecito" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://bandcamp.com/search?q=Rich+Jacques+Montecito" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </li>
+    
+  </ol>
+
+  <footer>
+    <span>CHILLFILTR® · The Weekly Catch with Krister Axel</span>
+    
+    <span>Support the artists — buy the record</span>
+  </footer>
+</main>
+<script src="https://widget.mixcloud.com/media/js/widgetApi.js"></script>
+<script>
+  (function () {
+    var iframe = document.getElementById('mixcloud-widget');
+    if (!iframe || typeof Mixcloud === 'undefined') return;
+    var widget = Mixcloud.PlayerWidget(iframe);
+    document.querySelectorAll('.title[data-seek]').forEach(function (link) {
+      link.addEventListener('click', function (event) {
+        event.preventDefault();
+        var seconds = parseInt(link.getAttribute('data-seek'), 10);
+        widget.ready.then(function () {
+          widget.seek(seconds);
+          widget.play();
+        });
+      });
+    });
+  })();
+</script>
+</body>
+</html>
