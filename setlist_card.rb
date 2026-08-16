@@ -59,6 +59,18 @@ rescue ArgumentError, TypeError
   str
 end
 
+SITE_URL = 'https://weeklycatch.org'
+
+def canonical_url(setlist)
+  "#{SITE_URL}/v/#{setlist.date}-card.html"
+end
+
+def social_description(setlist, curator)
+  bits = ["#{setlist.tracks.size} tracks"]
+  bits << runtime_label(setlist) if runtime_label(setlist)
+  "#{bits.join(' · ')} of Roots-Folk, Indie Rock & Electronica, curated by #{curator || 'Krister Axel'}."
+end
+
 def catalog_number(setlist)
   digits = setlist.date.to_s.gsub(/\D/, '')
   digits.empty? ? 'WC-000' : "WC-#{digits}"
@@ -96,6 +108,31 @@ TEMPLATE = <<~'HTML'
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= h(setlist.show) %><%= setlist.date ? " — #{h(pretty_date(setlist.date))}" : '' %></title>
   <link rel="shortcut icon" href="/art/weekly_catch.ico">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="The Weekly Catch">
+  <meta property="og:title" content="<%= h(headline) %><%= setlist.date ? " — #{h(pretty_date(setlist.date))}" : '' %>">
+  <meta property="og:description" content="<%= h(social_description(setlist, curator)) %>">
+  <meta property="og:url" content="<%= h(canonical_url(setlist)) %>">
+  <meta property="og:image" content="<%= SITE_URL %>/art/weekly-catch-small.png">
+  <meta property="og:image:width" content="400">
+  <meta property="og:image:height" content="277">
+  <% if mc_feed %>
+  <meta property="og:video" content="https://www.mixcloud.com/widget/iframe/?hide_cover=0&light=1&feed=<%= mc_feed %>">
+  <meta property="og:video:secure_url" content="https://www.mixcloud.com/widget/iframe/?hide_cover=0&light=1&feed=<%= mc_feed %>">
+  <meta property="og:video:type" content="text/html">
+  <meta property="og:video:width" content="480">
+  <meta property="og:video:height" content="480">
+  <% end %>
+  <meta name="twitter:card" content="<%= mc_feed ? 'player' : 'summary' %>">
+  <meta name="twitter:site" content="@chillfiltr">
+  <meta name="twitter:title" content="<%= h(headline) %><%= setlist.date ? " — #{h(pretty_date(setlist.date))}" : '' %>">
+  <meta name="twitter:description" content="<%= h(social_description(setlist, curator)) %>">
+  <meta name="twitter:image" content="<%= SITE_URL %>/art/weekly-catch-small.png">
+  <% if mc_feed %>
+  <meta name="twitter:player" content="https://www.mixcloud.com/widget/iframe/?hide_cover=0&light=1&feed=<%= mc_feed %>">
+  <meta name="twitter:player:width" content="480">
+  <meta name="twitter:player:height" content="480">
+  <% end %>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
