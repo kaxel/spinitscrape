@@ -250,6 +250,17 @@ TEMPLATE = <<~'HTML'
     .mixcloud-embed { margin-top: 18px; border-radius: 3px; overflow: hidden; border: 1px solid rgba(217,155,43,0.4); }
     .mixcloud-embed iframe { display: block; width: 100%; height: 60px; border: 0; }
 
+    .share-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+    .share-row .label {
+      font-family: var(--stamp); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ochre);
+    }
+    .share-btn {
+      font-family: var(--stamp); font-weight: 700; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--paper); background: transparent; border: 1px solid var(--ochre); padding: 7px 13px; border-radius: 2px;
+      cursor: pointer; transition: background 0.15s ease, color 0.15s ease;
+    }
+    .share-btn:hover { background: var(--ochre); color: var(--navy); }
+
     .dj-note {
       margin: 22px 36px 0; padding: 16px 20px; border-left: 3px solid var(--rust); background: var(--paper-2);
     }
@@ -421,6 +432,11 @@ TEMPLATE = <<~'HTML'
           src="https://www.mixcloud.com/widget/iframe/?hide_cover=1&hide_artwork=1&mini=1&light=1&feed=<%= mc_feed %>"></iframe>
       </div>
       <% end %>
+      <div class="share-row">
+        <span class="label">Share</span>
+        <button type="button" class="share-btn" data-share-platform="Instagram">Instagram</button>
+        <button type="button" class="share-btn" data-share-platform="TikTok">TikTok</button>
+      </div>
     </div>
 
     <% if note %>
@@ -486,6 +502,34 @@ TEMPLATE = <<~'HTML'
     })();
   </script>
   <% end %>
+  <script>
+    (function () {
+      var url = window.location.href;
+      var title = document.title;
+      document.querySelectorAll('.share-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          if (navigator.share) {
+            navigator.share({ title: title, url: url }).catch(function () {});
+            return;
+          }
+          var original = btn.textContent;
+          function flash(text) {
+            btn.textContent = text;
+            setTimeout(function () { btn.textContent = original; }, 1800);
+          }
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url).then(function () {
+              flash('Link copied');
+            }).catch(function () {
+              flash('Copy failed');
+            });
+          } else {
+            flash('Copy failed');
+          }
+        });
+      });
+    })();
+  </script>
   </body>
   </html>
 HTML
