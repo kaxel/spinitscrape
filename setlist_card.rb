@@ -470,7 +470,7 @@ TEMPLATE = <<~'HTML'
           <a href="<%= h(search_url(:youtube, track.query)) %>" target="_blank" rel="noopener">YouTube</a>
           <a href="<%= h(search_url(:spotify, track.query)) %>" target="_blank" rel="noopener">Spotify</a>
           <a href="<%= h(search_url(:bandcamp, track.query)) %>" target="_blank" rel="noopener">Bandcamp</a>
-          <a href="<%= h(search_url(:chillfiltr, track.query)) %>" target="_blank" rel="noopener">CHILLFILTR</a>
+          <a href="<%= h(search_url(:chillfiltr, track.artist)) %>" target="_blank" rel="noopener">CHILLFILTR</a>
         </div>
       </li>
       <% end %>
