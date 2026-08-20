@@ -24,6 +24,7 @@ def search_url(service, query)
   when :youtube   then "https://www.youtube.com/results?search_query=#{q}"
   when :spotify   then "https://open.spotify.com/search/#{q}"
   when :bandcamp  then "https://bandcamp.com/search?q=#{q}"
+  when :chillfiltr then "https://chillfiltr.com/pages/search?search=#{q}"
   end
 end
 
@@ -469,6 +470,7 @@ TEMPLATE = <<~'HTML'
           <a href="<%= h(search_url(:youtube, track.query)) %>" target="_blank" rel="noopener">YouTube</a>
           <a href="<%= h(search_url(:spotify, track.query)) %>" target="_blank" rel="noopener">Spotify</a>
           <a href="<%= h(search_url(:bandcamp, track.query)) %>" target="_blank" rel="noopener">Bandcamp</a>
+          <a href="<%= h(search_url(:chillfiltr, track.query)) %>" target="_blank" rel="noopener">CHILLFILTR</a>
         </div>
       </li>
       <% end %>
