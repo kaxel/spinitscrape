@@ -26,25 +26,42 @@ FISH_DIR = File.join(CHILLONRAILS_DIR, 'public/weekly-catch-fish')
 
 # A line looks like an elapsed-time cue if, once a trailing "~" is stripped,
 # it's built only from digits/colons/h/m/s (e.g. "1:55", "1:00:00", "1h09m05s").
-# See memory: these cues are frequently wrong and are NOT needed for a plain
-# tracklist post, so they're parsed only to be discarded.
+# Per memory, these cues are frequently wrong to the *second* — not reliable
+# enough to display as fact — but they're exactly what weeklycatch.org's own
+# card pages already use to jump the Mixcloud player to a track, where being
+# off by a few seconds is a minor, acceptable inconvenience rather than a
+# factual error. Used only for that; never shown as text.
 TIMESTAMP_RE = /\A~?\d[\dhms:]*\z/
 
 def timestamp?(str)
   TIMESTAMP_RE.match?(str.strip)
 end
 
+# "1:55" / "1:00:00" (M:SS or H:MM:SS) / "1h09m05s" -> total seconds, or nil
+# if it doesn't match either shape. Ignores a leading "~".
+def seconds_from_timestamp(str)
+  s = str.strip.sub(/\A~/, '')
+  if s.include?(':')
+    s.split(':').map(&:to_i).inject(0) { |total, part| total * 60 + part }
+  elsif s =~ /\A(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?\z/ && s.match?(/\d/)
+    Regexp.last_match(1).to_i * 3600 + Regexp.last_match(2).to_i * 60 + Regexp.last_match(3).to_i
+  end
+end
+
 # "12. Artist - Song - 1:23:45" / "   Artist - Song - 1:23:45" (no number,
-# a manually-inserted line) -> ["Artist", "Song"]. Splits on the FIRST " - "
-# only, so a song title that itself contains " - " stays intact; the cue
-# (if present as the last " - "-delimited part and timestamp-shaped) is
-# dropped rather than trusted.
+# a manually-inserted line) -> {artist:, song:, seek_seconds:}. Splits on the
+# FIRST " - " only, so a song title that itself contains " - " stays intact;
+# the cue (if present as the last " - "-delimited part and timestamp-shaped)
+# is captured for seeking only, never trusted as displayable text.
 def parse_track_line(line)
   text = line.strip.sub(/\A\d+[.\t]\s*/, '')
   return nil if text.empty?
 
   parts = text.split(' - ')
-  parts.pop if parts.size > 1 && timestamp?(parts.last)
+  seek_seconds = nil
+  if parts.size > 1 && timestamp?(parts.last)
+    seek_seconds = seconds_from_timestamp(parts.pop)
+  end
   return nil if parts.size < 2
 
   artist = parts.first.strip
@@ -52,10 +69,13 @@ def parse_track_line(line)
   # Catches a rarer source typo: a cue glued directly onto the song with no
   # " - " before it at all (e.g. "Rose and Thorn 38:28"), which the split
   # above can't see since there's no delimiter to split on.
-  song = song.sub(/\s+~?\d{1,2}:\d{2}(:\d{2})?\s*\z/, '').strip
+  if (m = song.match(/\s+(~?\d{1,2}:\d{2}(?::\d{2})?)\s*\z/))
+    seek_seconds ||= seconds_from_timestamp(m[1])
+    song = song.sub(m[0], '').strip
+  end
   return nil if artist.empty? || song.empty?
 
-  { artist: artist, song: song }
+  { artist: artist, song: song, seek_seconds: seek_seconds }
 end
 
 def parse_episode(base_txt_path)
