@@ -17,9 +17,12 @@
 require 'json'
 require 'date'
 require 'fileutils'
+require_relative 'fish_thumbnail'
 
 SOURCE_DIR = __dir__
-OUT_PATH = File.expand_path('../chillonrails/db/data/weekly_catch_episodes.json', SOURCE_DIR)
+CHILLONRAILS_DIR = File.expand_path('../chillonrails', SOURCE_DIR)
+OUT_PATH = File.join(CHILLONRAILS_DIR, 'db/data/weekly_catch_episodes.json')
+FISH_DIR = File.join(CHILLONRAILS_DIR, 'public/weekly-catch-fish')
 
 # A line looks like an elapsed-time cue if, once a trailing "~" is stripped,
 # it's built only from digits/colons/h/m/s (e.g. "1:55", "1:00:00", "1h09m05s").
@@ -80,7 +83,15 @@ def parse_episode(base_txt_path)
 
   tracks = track_lines.filter_map { |l| parse_track_line(l) }
 
-  { date: date_str, mixcloud_url: mixcloud_url, tracks: tracks }
+  # Same deterministic pixel-fish used on weeklycatch.org's own episode
+  # ledger — one distinct fish per date, not the same static logo for every
+  # post. Written as a static file so Post#image can be a plain URL, same
+  # as any other post's image.
+  FileUtils.mkdir_p(FISH_DIR)
+  fish_path = File.join(FISH_DIR, "#{date_str}.svg")
+  File.write(fish_path, FishThumbnail.svg(date_str.delete('-').to_i))
+
+  { date: date_str, mixcloud_url: mixcloud_url, image_path: "/weekly-catch-fish/#{date_str}.svg", tracks: tracks }
 end
 
 base_files = Dir.glob(File.join(SOURCE_DIR, '[0-9]' * 4 + '-' + '[0-9]' * 2 + '-' + '[0-9]' * 2 + '.txt')).sort
