@@ -7,7 +7,7 @@ require 'json'
 require 'date'
 
 SHOW_NAME = "The Weekly Catch with Krister Axel"
-START_DATE = Date.new(2026, 07, 03)
+START_DATE = Date.new(2026, 9, 2)
 
 def fetch_json(url)
   uri = URI.parse(url)

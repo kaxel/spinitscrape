@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "chillonrails",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "cd /Users/kristeraxel/src/chillonrails && bin/rails server -p 3000"],
+      "port": 3000
+    }
+  ]
+}
