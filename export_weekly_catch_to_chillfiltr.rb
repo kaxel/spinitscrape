@@ -78,6 +78,16 @@ def parse_track_line(line)
   { artist: artist, song: song, seek_seconds: seek_seconds }
 end
 
+# Every Weekly Catch broadcast is uploaded to Mixcloud under the same
+# deterministic slug: chillfiltr/weekly-catch-<YYYY-MM-DD>-kskq. Older episode
+# .txt files were written before the Mixcloud link was tracked inline, so when
+# the source file doesn't carry one we reconstruct the canonical URL from the
+# date. (Spot-checked against Mixcloud for every 2026-05 .. 2026-08 episode
+# that was missing the inline link — all resolve.)
+def canonical_mixcloud_url(date_str)
+  "https://www.mixcloud.com/chillfiltr/weekly-catch-#{date_str}-kskq/"
+end
+
 def parse_episode(base_txt_path)
   lines = File.readlines(base_txt_path, encoding: 'UTF-8').map(&:chomp)
 
@@ -85,12 +95,14 @@ def parse_episode(base_txt_path)
   url_line = lines.find { |l| l.start_with?('URL:') }
   date = Date.parse(date_line.sub('Date:', '').strip)
   urls = url_line.to_s.sub('URL:', '').split(',').map(&:strip)
-  mixcloud_url = urls.find { |u| u.include?('mixcloud.com') }
+
+  date_str = date.strftime('%Y-%m-%d')
+  inline_mixcloud_url = urls.find { |u| u.include?('mixcloud.com') }
+  mixcloud_url = inline_mixcloud_url || canonical_mixcloud_url(date_str)
 
   # Prefer the dedicated *-tracklist.txt export when one exists (clean,
   # consistently formatted); fall back to parsing the base .txt's own
   # "Tracks:" section for older episodes that predate it.
-  date_str = date.strftime('%Y-%m-%d')
   tracklist_path = File.join(SOURCE_DIR, "#{date_str}-tracklist.txt")
 
   track_lines =
@@ -111,7 +123,8 @@ def parse_episode(base_txt_path)
   fish_path = File.join(FISH_DIR, "#{date_str}.svg")
   File.write(fish_path, FishThumbnail.svg(date_str.delete('-').to_i))
 
-  { date: date_str, mixcloud_url: mixcloud_url, image_path: "/weekly-catch-fish/#{date_str}.svg", tracks: tracks }
+  { date: date_str, mixcloud_url: mixcloud_url, mixcloud_url_derived: inline_mixcloud_url.nil?,
+    image_path: "/weekly-catch-fish/#{date_str}.svg", tracks: tracks }
 end
 
 base_files = Dir.glob(File.join(SOURCE_DIR, '[0-9]' * 4 + '-' + '[0-9]' * 2 + '-' + '[0-9]' * 2 + '.txt')).sort
@@ -119,9 +132,15 @@ base_files = Dir.glob(File.join(SOURCE_DIR, '[0-9]' * 4 + '-' + '[0-9]' * 2 + '-
 episodes = base_files.map { |path| parse_episode(path) }
 episodes.reject! { |e| e[:tracks].empty? }
 
+derived = episodes.select { |e| e.delete(:mixcloud_url_derived) }.map { |e| e[:date] }
+
 FileUtils.mkdir_p(File.dirname(OUT_PATH))
 File.write(OUT_PATH, JSON.pretty_generate(episodes))
 
 puts "Wrote #{OUT_PATH}"
 puts "#{episodes.size} episodes, #{episodes.sum { |e| e[:tracks].size }} tracks total"
-puts "#{episodes.count { |e| e[:mixcloud_url] }} with a Mixcloud link, #{episodes.count { |e| !e[:mixcloud_url] }} without"
+puts "All #{episodes.size} episodes have a Mixcloud link."
+unless derived.empty?
+  puts "#{derived.size} link(s) reconstructed from the canonical slug (no inline URL in the .txt): #{derived.join(', ')}"
+  puts "Confirm these resolve on Mixcloud before deploying."
+end
